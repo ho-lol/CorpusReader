@@ -2,6 +2,10 @@ import re
 import os
 from difflib import SequenceMatcher
 from nltk.data import find
+
+__space_mark="@SP@"
+
+
 def remove_num(data):
     return re.compile(r'__[0-9]+').sub('',data)
 def remove_alpha(data):
@@ -10,7 +14,7 @@ def remove_alphaplus(data):
     return re.compile(r'/[A-Z+]+').sub('',data)
 def remove_tag(data):
     return remove_num(data[0:data.rfind('/')])
-__space_mark="@SP@"
+
 def exist(values,data):
     for i in values:
         if compare(i[1:],data):
@@ -24,12 +28,6 @@ def compare(list1,list2):
         if not list1[i]==list2[i]:
             return False
     return True
-##def remove_num(data):
-##    return re.compile(r'__[0-9]+').sub('',data)
-##def remove_alpha(data):
-##    return re.compile(r'/[A-Z+]').sub('',data)
-##def remove_alphaplus(data):
-##    return re.compile(r'/[A-Z+]+').sub('',data)
 def search_alpha(data):
     return re.compile(r'/[A-Z+]').search(data)
 def count_dict(dic,key,value):
@@ -171,6 +169,8 @@ if __name__=="__main__":
             files_raw.append(fn)
         elif "sjtm" in fn:
             files_tagged.append(fn)
+    print(files_raw)
+    print(files_tagged)
     raw_array=[]
     tagged_array=[]
 

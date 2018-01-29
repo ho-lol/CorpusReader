@@ -1,6 +1,7 @@
 import re
 import os
 from pathlib import Path
+from nltk.data import find
 __space_mark="@SP@"
 def __search(path,patten):
     if re.compile(patten).search(str(path)) is None:
@@ -20,6 +21,11 @@ def make_file(path,number,extension,data,encoding='utf8'):
     with open(wfn,'w',encoding=encoding) as f:
         print("".join(data),file=f)
     f.close()
+def make_file2(name,number,data,encoding='utf8'):
+    wfn=name+number+".txt"
+    with open(wfn,'w',encoding=encoding) as f:
+        print("".join(data),file=f)
+    f.close()
     
 def split_fraction(path,fpatten='sj\d+',encoding='utf8'):#fpatten을 좀더 name이랑 분리해서 사용하기쉽게
 
@@ -27,8 +33,9 @@ def split_fraction(path,fpatten='sj\d+',encoding='utf8'):#fpatten을 좀더 name
 
     files=[dir_now for dir_now in path.iterdir() if dir_now.is_file() and __search(dir_now,fpatten)]
     for file in files:
+        
         f=file.open(encoding=encoding).read()
-
+        
  
         raw=['\n\n']
         tag_morphed=['\n\n']
@@ -41,7 +48,7 @@ def split_fraction(path,fpatten='sj\d+',encoding='utf8'):#fpatten을 좀더 name
         
         for sent in sent_rule.findall(f):
             del_sent_num=del_sent_num_rule.sub('',sent)
-            for word_morph in word_morph_rule.finditer(del_sent_num_rule):
+            for word_morph in word_morph_rule.finditer(del_sent_num):
                 raw_w=word_morph.group(1).strip()
                 tag_m=word_morph.group(2).strip()
                 morph=remove_alphaplus(remove_num(tag_m))
@@ -62,17 +69,20 @@ def split_fraction(path,fpatten='sj\d+',encoding='utf8'):#fpatten을 좀더 name
         except IOError:
             print(e)
         number=search_num.group()
-
+        make_file2("sjr",number,raw)
+        make_file2("sjtm",number,tag_morphed)
+        make_file2("sjm",number,morphed)
         
-        make_file(file,number,'.raw',raw)
-        make_file(file,number,'.tagm',tag_morphed)
-        make_file(file,number,'.morph',morphed)
-
+##        make_file(file,number,'.raw',raw)
+##        make_file(file,number,'.tagm',tag_morphed)
+##        make_file(file,number,'.morph',morphed)
+##
         
 
 
 if __name__=="__main__":
-
-    p=Path('.').joinpath('sejong')
-    os.chdir("./sejong")
-    split_fraction(p.cwd())
+    path=find("corpora\\sejong").path
+    
+    p=Path(path)
+    os.chdir(p)
+    split_fraction(p)
