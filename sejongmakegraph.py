@@ -8,10 +8,10 @@ __space_mark="@SP@"
 
 def remove_num(data):
     return re.compile(r'__[0-9]+').sub('',data)
-def remove_alpha(data):
-    return re.compile(r'/[A-Z+]').sub('',data)
-def remove_alphaplus(data):
-    return re.compile(r'/[A-Z+]+').sub('',data)
+##def remove_alpha(data):
+##    return re.compile(r'/[A-Z+]').sub('',data)
+##def remove_alphaplus(data):
+##    return re.compile(r'/[A-Z+]+').sub('',data)
 def remove_tag(data):
     return remove_num(data[0:data.rfind('/')])
 
@@ -48,19 +48,19 @@ def make_resdata(mat_blocks,reduce_num):
 ##rule1=re.compile(r'__[0-9]+')
 ##rule2=re.compile(r'/[A-Z+]+')
 ##rule3=re.compile(r'/[A-Z+]')
-
-def make_arrays(fnr="sj00.raw",fnt="sj00.tagm"):
-    raw_array=[]
-    tagged_array=[]
-    for line in open(fnr,'r',encoding="utf8").readlines():
-        if line and not line.strip():
-            continue
-        raw_array.append(line.split(__space_mark))
-    for line in open(fnt,'r',encoding="utf8").readlines():
-        if line and not line.strip():
-            continue
-        tagged_array.append(line.split(__space_mark)) 
-    return raw_array,tagged_array
+##
+##def make_arrays(fnr="sj00.raw",fnt="sj00.tagm"):
+##    raw_array=[]
+##    tagged_array=[]
+##    for line in open(fnr,'r',encoding="utf8").readlines():
+##        if line and not line.strip():
+##            continue
+##        raw_array.append(line.split(__space_mark))
+##    for line in open(fnt,'r',encoding="utf8").readlines():
+##        if line and not line.strip():
+##            continue
+##        tagged_array.append(line.split(__space_mark)) 
+##    return raw_array,tagged_array
 
 def make_dict(result_dic,raw_array,tagged_array):
     
@@ -152,7 +152,33 @@ def make_dict(result_dic,raw_array,tagged_array):
 ##    ##                print("\n\n")
                 
                     
+def make_arrays(path):
+    files_raw,files_tagged=[],[]
 
+    
+    for fn in os.listdir(path):
+        if "sjr" in fn:
+            files_raw.append(fn)
+        elif "sjtm" in fn:
+            files_tagged.append(fn)
+            
+    raw_array,tagged_array=[],[]
+    
+    for i in range(len(files_raw)):
+        
+##        temp_raw_array,temp_tagged_array=make_arrays(fnr=files_raw[i],fnt=files_tagged[i])
+##        raw_array.extend(temp_raw_array)
+##        tagged_array.extend(temp_tagged_array)
+
+        for line in open(files_raw[i],'r',encoding="utf8").readlines():
+            if line and not line.strip():
+                continue
+            raw_array.append(line.split(__space_mark))
+        for line in open(files_tagged[i],'r',encoding="utf8").readlines():
+            if line and not line.strip():
+                continue
+            tagged_array.append(line.split(__space_mark)) 
+    return raw_array,tagged_array
 def make_df(result,fn="dictionary1.dic"):
     with open(fn,'w', encoding="utf8") as f:
         for k,v in result.items():
@@ -162,23 +188,11 @@ if __name__=="__main__":
     result_dic={}
     path=find("corpora\\sejong").path
     os.chdir(path)
-    files_raw=[]
-    files_tagged=[]
-    for fn in os.listdir(path):
-        if "sjr" in fn:
-            files_raw.append(fn)
-        elif "sjtm" in fn:
-            files_tagged.append(fn)
-    print(files_raw)
-    print(files_tagged)
-    raw_array=[]
-    tagged_array=[]
-
-    for i in range(len(files_raw)):
-        temp_raw_array,temp_tagged_array=make_arrays(fnr=files_raw[i],fnt=files_tagged[i])
-        raw_array.extend(temp_raw_array)
-        tagged_array.extend(temp_tagged_array)
+    raw_array,tagged_array=make_arrays(path)
     
+##    for i in range(20):
+##        print(raw_array[i])
+##        print(tagged_array[i])
     print("리스트만들기 완료")
     make_dict(result_dic,raw_array,tagged_array)
 ##    print("사전만들기완료")
