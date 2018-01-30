@@ -5,7 +5,7 @@ from nltk.data import find
 
 __space_mark="@SP@"
 
-
+##플러스 그룹핑 /[a-zA-Z]+\+
 def remove_num(data):
     return re.compile(r'__[0-9]+').sub('',data)
 ##def remove_alpha(data):
