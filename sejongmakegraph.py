@@ -90,15 +90,14 @@ def make_dict(result_dic,raw_array,tagged_array):
                     
                     SM3 = SequenceMatcher(None,tag_word,merge_morph)
                     mat_blocks2 = SM3.get_matching_blocks()
-                    
-                        
+                    print(mat_blocks2)
+
                     valid_block = []
-                    print(j2)
                     for block in mat_blocks2:
                         if block[1]+block[2] >= j1 and block[1]+block[2] <= j2+1:
                             valid_block.append(block)
 
-                    print(mat_blocks2)
+                            
                     print(valid_block)
                     for i in range(len(valid_block)-1):
                         
