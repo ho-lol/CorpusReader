@@ -79,15 +79,27 @@ def make_dict(result_dic,raw_array,tagged_array):
                 if tag == "equal":
                     for morph in tag_morph:
                         pyochung,postag = str2tuple(morph)
-                ## 표청어 사전폼 품사 아름다 아름답  a
-                ##헷갈리는게 아름답<은 안하는건가?
+
+                        
+                        #count_dic(result_dic[pyochung])있는지없는지찾아보고 있으면 빈도수 +끗
+
+                
                 if tag == "replace":
                     
-                    print(tag_word)
-                    print(merge_morph)
-                    print ("%7s a[%d:%d] (%s) b[%d:%d] (%s)"%(tag, i1, i2, raw_word[i1:i2], j1, j2, merge_morph[j1:j2]))
-                    print("\n\n")
-                    
+##                    print(tag_word)
+##                    print(merge_morph)
+##                    print ("%7s a[%d:%d] (%s) b[%d:%d] (%s)"%(tag, i1, i2, raw_word[i1:i2], j1, j2, merge_morph[j1:j2]))
+##                    print("\n\n")
+                    fraction = []
+                    for morph_tag in tag_morph:
+                        morph,tag = str2tuple(morph_tag)
+                        for syl in morph:
+                            fraction.append([syl,tag])
+                    print(fraction)
+                            
+                            
+                            
+                            
                     SM3 = SequenceMatcher(None,tag_word,merge_morph)
                     mat_blocks2 = SM3.get_matching_blocks()
                     print(mat_blocks2)
@@ -98,15 +110,15 @@ def make_dict(result_dic,raw_array,tagged_array):
                             valid_block.append(block)
 
                             
-                    print(valid_block)
+##                    print(valid_block)
                     for i in range(len(valid_block)-1):
                         
                         if i == 0:
                             content_words=tag_word[valid_block[i][0]:valid_block[i][0]+valid_block[i+1][0]]
-                            print(content_words)
+##                            print(content_words)
                         else:
                             function_words=tag_word[valid_block[i][0]:valid_block[i+1][0]]
-                            print(function_words)
+##                            print(function_words)
 
 
 
