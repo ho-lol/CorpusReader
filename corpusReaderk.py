@@ -1,7 +1,6 @@
 from nltk.corpus.reader.tagged import *
 from nltk.tokenize import *
-class CategorizedTaggedCorpusReaderK(CategorizedCorpusReader,
-                                     TaggedCorpusReader):
+class SejongCorpusReader(CategorizedCorpusReader,TaggedCorpusReader):
     SPACE="@SP@"
     def __init__(self, *args, **kwargs):
         """

@@ -3,7 +3,7 @@ import re
 from nltk.corpus.util import LazyCorpusLoader
 sejong = LazyCorpusLoader(
     'sejong', 
-    CategorizedTaggedCorpusReaderK, 
+    SejongCorpusReader, 
     r'sj[a-z]+\d\d.txt',
     cat_file='cats.txt',
     encoding="utf8")
