@@ -163,6 +163,7 @@ def make_dict(result_dic,raw_array,tagged_array):
                                 
                                 if len(split_list_byp) !=  1:
                                     if split_list_byp[-1].find('<') != -1:
+
                                         # 여기서 좀헷갈리네
                                         #의무+교육+화+된  or 의무+교육+화된 화<된  화|된 어떻게 생각할것인가
                                         temp = (pyo_temp[-1],dic_temp[-1],postag_temp[-1])
@@ -219,7 +220,7 @@ def make_dict(result_dic,raw_array,tagged_array):
 ##                            print(opcodes)
                             continue
                             
-
+                        
                         prev_raw=pyo_temp[-2]
 
                         
@@ -307,35 +308,29 @@ def make_dict(result_dic,raw_array,tagged_array):
                                     fraction_morph = []
                                     fraction_merge = []
                                     
-                                    raw_word[index_raw:nxt_raw]
                                     for index in range(index_merge,nxt_merge):
                                         fraction_merge.extend(fraction[index])
                                     
                                     if index_raw!=0:
                                         if mat_blocks[index_raw-1][1][0].find('+') != -1:
                                             mat_blocks[index_raw-1][1][0] = mat_blocks[index_raw-1][1][0][:-1]+'<'
-                                            mer_mor='>'+"".join( fraction_merge[i] for i in range(0,len(fraction_merge),2))
+                                            mer_mor = '>' + "".join( fraction_merge[i] for i in range(0,len(fraction_merge),2))
                                         else:
                                             mat_blocks[index_raw-1][1][0] = mat_blocks[index_raw-1][1][0]+'<'
-                                            mer_mor='>'+"".join( fraction_merge[i] for i in range(0,len(fraction_merge),2))
+                                            mer_mor = '>' + "".join( fraction_merge[i] for i in range(0,len(fraction_merge),2))
                                     else:
                                         mer_mor="".join( fraction_merge[i] for i in range(0,len(fraction_merge),2))
-                                    
-                                    
-                                    mer_tag="".join( fraction_merge[i] for i in range(1,len(fraction_merge),2))
+
+                                        
+                                    mer_tag = "".join( fraction_merge[i] for i in range(1,len(fraction_merge),2))
                                     mat_blocks.append([raw_word[index_raw:nxt_raw],[mer_mor,mer_tag]])
-                                    
-                                        
-                                        
-
-
                                     mat_blocks.append([raw_word[nxt_raw],fraction[nxt_merge]])
                                     index_raw = nxt_raw
                                     index_merge = nxt_merge
                                     break
                     if index_raw == len(raw_word)-1:
                         break #요기까지 프랙션 했다가 다시 붙이기
-
+                
                 ## 붙였는데 태깅중복되는것들 다시 합치기  딜리트를 쓰면 되게 쉬울것같았는데 지우면 바로 리스트에 인덱스가 전부 바뀌어버려서 생각보다 하드코딩함...
                 merge_block=[]
 
@@ -396,7 +391,7 @@ def make_dict(result_dic,raw_array,tagged_array):
                 
                 for block in blocks:
                     pyochung_list.append(block[0])
-                    dic_list.append(block[1][0]
+                    dic_list.append(block[1][0])
                     postag_list.extend(block[1][1])
                 ##요정도까지 하면 전부 나오긴나오는데 + > 에대한 정의를 확실히 내리고 다시한번 봐야될듯 그리고 너무 하드코딩이라 고민해봐야됨
                         
@@ -404,7 +399,9 @@ def make_dict(result_dic,raw_array,tagged_array):
                ##사전에 넣는거는 그리어렵지 않으니 일단 월요일날 다시 가서 살펴봐야될         
                     
 
-                         
+            print(pyochung_list)
+            print(dic_list)
+            print(postag_list)
                         
                         
                 
