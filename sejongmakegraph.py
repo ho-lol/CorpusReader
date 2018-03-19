@@ -6,7 +6,8 @@ from nltk.tag.util import str2tuple
 from itertools import chain,tee,islice
 
 ##__space_mark="@SP@"
-
+__pre_mark=""##사전만들때 꺾쇠<를 넣거나 일단은 cyk를 위해 공백넣음
+__post_mark=""##>
 ##rule1=re.compile(r'__[0-9]+')
 ##rule2=re.compile(r'/[A-Z+]+')
 ##rule3=re.compile(r'/[A-Z+]')
@@ -116,7 +117,7 @@ def make_dict(result_dic,raw_array,tagged_array):
                     fraction[-1][1] = fraction[-1][1] + '+'
                 fraction[-1][0] = fraction[-1][0][0]
                 fraction[-1][1] = fraction[-1][1][:-1]
-##                print(fraction)
+                print(fraction)
                 not_equal = []
                 for prev,curr,nxt in previous_and_next(opcodes):
                     i1,i2, j1,j2 = curr[1], curr[2], curr[3], curr[4]
@@ -143,26 +144,26 @@ def make_dict(result_dic,raw_array,tagged_array):
                                 print(merge_morph)
                                 print(opcodes)
                             if not prev_dic.count('+'):## 자유|롭게 자유|로+/vv웁+게
-                                prev_dic = prev_dic + '<'
+                                prev_dic = prev_dic + __pre_mark
                                 dic_temp[-2] = prev_dic
-                                dic_temp[-1] = '>' + dic_temp[-1]
+                                dic_temp[-1] = __post_mark + dic_temp[-1]
                                 if postag_temp[-2].find('/')!=-1:
                                     postag_temp[-2]=postag_temp[-2][0:postag_temp[-2].find('/')]
                             else:
                                 if prev_dic.rfind('+') == len(prev_dic) - 1  :##제일 끝+ 붙은거를 <로 바꿈
-                                    prev_dic = prev_dic[:-1] + '<'
+                                    prev_dic = prev_dic[:-1] + __pre_mark
                                     dic_temp[-2] = prev_dic
-                                    dic_temp[-1] = '>' + dic_temp[-1]
+                                    dic_temp[-1] = __post_mark + dic_temp[-1]
 
                                 else:
-                                    prev_dic = prev_dic + '<'
+                                    prev_dic = prev_dic + __pre_mark
                                     dic_temp[-2] = prev_dic
-                                    dic_temp[-1] = '>' + dic_temp[-1]
+                                    dic_temp[-1] = __post_mark + dic_temp[-1]
 
                                 split_list_byp = prev_dic.split('+')
                                 
                                 if len(split_list_byp) !=  1:
-                                    if split_list_byp[-1].find('<') != -1:
+                                    if split_list_byp[-1].find(__pre_mark) != -1:
 
                                         # 여기서 좀헷갈리네
                                         #의무+교육+화+된  or 의무+교육+화된 화<된  화|된 어떻게 생각할것인가
@@ -172,7 +173,7 @@ def make_dict(result_dic,raw_array,tagged_array):
                                         postag_temp = postag_temp[:-2]
                                         lastwd_index = 0
                                         for word in split_list_byp:
-                                            if word.rfind('<') == len(word) -1:
+                                            if word.rfind(__pre_mark) == len(word) -1:
                                                 pyo_temp.append(word[:-1])
                                             else:
                                                 pyo_temp.append(word)
@@ -184,7 +185,7 @@ def make_dict(result_dic,raw_array,tagged_array):
                                                 if morph.find(word) != -1:
                                                     postag_temp.append(postag)
                                                     break
-                                                if word.rfind('<') == len(word) -1:
+                                                if word.rfind(__pre_mark) == len(word) -1:
                                                     if fraction[lastwd_index][1].find('+') == -1:
                                                         postag_temp.append(fraction[lastwd_index][1])
                                                         break
@@ -231,12 +232,12 @@ def make_dict(result_dic,raw_array,tagged_array):
                         
                         if prev_dic.rfind('+') == len(prev_dic) - 1  :##제일 끝+ 붙은거를 <로 바꿈
 
-                            prev_dic = prev_dic[:-1] + '<'
+                            prev_dic = prev_dic[:-1] + __pre_mark
                         else:
-                            prev_dic = prev_dic + '<'
+                            prev_dic = prev_dic + __pre_mark
                         split_list_byp = prev_dic.split('+')   #plus 가 있으면
                         if len(split_list_byp) !=  1:
-                            if split_list_byp[-1].find('<') != -1:
+                            if split_list_byp[-1].find(__pre_mark) != -1:
                                 
                                 temp = (pyo_temp[-1],dic_temp[-1],postag_temp[-1])
                                 pyo_temp = pyo_temp[:-2]
@@ -244,7 +245,7 @@ def make_dict(result_dic,raw_array,tagged_array):
                                 postag_temp = postag_temp[:-2]
                                 lastwd_index = 0
                                 for word in split_list_byp:
-                                    if word.rfind('<') == len(word) -1:
+                                    if word.rfind(__pre_mark) == len(word) -1:
                                         pyo_temp.append(word[:-1])      ## 표청어 사전
                                         dic_temp.append(word+temp[1])
                                     else:
@@ -258,7 +259,7 @@ def make_dict(result_dic,raw_array,tagged_array):
                                         if morph.find(word) != -1:
                                             postag_temp.append(postag)
                                             break
-                                        if word.rfind('<') == len(word) -1:
+                                        if word.rfind(__pre_mark) == len(word) -1:
                                             if fraction[lastwd_index][1].find('+') == -1:
                                                 postag_temp.append(fraction[lastwd_index][1] + '+' + temp[2])
                                                 break
@@ -269,7 +270,7 @@ def make_dict(result_dic,raw_array,tagged_array):
 
                             
                         else:  ##플러스가 없을때는 간단
-                            dic_temp[-2] = prev_dic + '>' +dic_temp[-1]
+                            dic_temp[-2] = prev_dic + __post_mark +dic_temp[-1]
 
                             dic_temp=dic_temp[:-1]
                             
@@ -296,7 +297,8 @@ def make_dict(result_dic,raw_array,tagged_array):
                 fraction[-1][1] = fraction[-1][1][:-1]
                 mat_blocks = []
                 index_merge = 0
-                for index_raw in range(len(raw_word)): ##한글자씩 한글자씩 비교해가면서 달라지는곳만 합쳐서 넣었음. 
+                for index_raw in range(len(raw_word)): ##한글자씩 한글자씩 비교해가면서 달라지는곳만 합쳐서 넣었음.
+                    
                     if raw_word[index_raw] == merge_morph[index_merge]:
 
                         mat_blocks.append([raw_word[index_raw],fraction[index_merge]])
@@ -313,11 +315,11 @@ def make_dict(result_dic,raw_array,tagged_array):
                                     
                                     if index_raw!=0:
                                         if mat_blocks[index_raw-1][1][0].find('+') != -1:
-                                            mat_blocks[index_raw-1][1][0] = mat_blocks[index_raw-1][1][0][:-1]+'<'
-                                            mer_mor = '>' + "".join( fraction_merge[i] for i in range(0,len(fraction_merge),2))
+                                            mat_blocks[index_raw-1][1][0] = mat_blocks[index_raw-1][1][0][:-1]+__pre_mark
+                                            mer_mor = __post_mark + "".join( fraction_merge[i] for i in range(0,len(fraction_merge),2))
                                         else:
-                                            mat_blocks[index_raw-1][1][0] = mat_blocks[index_raw-1][1][0]+'<'
-                                            mer_mor = '>' + "".join( fraction_merge[i] for i in range(0,len(fraction_merge),2))
+                                            mat_blocks[index_raw-1][1][0] = mat_blocks[index_raw-1][1][0]+__pre_mark
+                                            mer_mor = __post_mark + "".join( fraction_merge[i] for i in range(0,len(fraction_merge),2))
                                     else:
                                         mer_mor="".join( fraction_merge[i] for i in range(0,len(fraction_merge),2))
 
@@ -398,15 +400,10 @@ def make_dict(result_dic,raw_array,tagged_array):
                 
                ##사전에 넣는거는 그리어렵지 않으니 일단 월요일날 다시 가서 살펴봐야될         
                     
-
-            print(pyochung_list)
-            print(dic_list)
-            print(postag_list)
-                        
-                        
-                
-
-
+            for pyo,di,pos in zip(pyochung_list,dic_list,postag_list):
+               
+                count_dict(result_dic,str(pyo),[di,pos])
+                                
 
 
 
@@ -577,12 +574,11 @@ if __name__=="__main__":
 
 
     #테스트용 나중에 삭제바람        
-    files_raw=[files_raw[1]]
-    files_tagged=[files_tagged[1]]
+##    files_raw=[files_raw[1]]
+##    files_tagged=[files_tagged[1]]
     
     raw_array=[]
     tagged_array=[]
-
     for i in range(len(files_raw)):
         temp_raw_array,temp_tagged_array=make_arrays(fnr=files_raw[i],fnt=files_tagged[i])
         raw_array.extend(temp_raw_array)
@@ -593,3 +589,4 @@ if __name__=="__main__":
     
     print("사전만들기완료")
     make_df(result_dic)
+#딕셔너리가 본디렉토리가 아니라 세종코퍼스아래디렉토리로 가는 문제 및 exception processing필

@@ -12,8 +12,8 @@ class SejongCorpusReader(CategorizedCorpusReader,TaggedCorpusReader):
         CategorizedCorpusReader.__init__(self, kwargs)
         TaggedCorpusReader.__init__(self, *args, **kwargs)
         self._raw_fileids=[fileid for fileid in self.fileids() if 'sjr' in fileid]
-        self._tagm_fileids=[fileid for fileid in self.fileids() if 'sjtm' in fileid]
-        self._morph_fileids=[fileid for fileid in self.fileids() if 'sjm' in fileid]
+        self._tagm_fileids=[fileid for fileid in self.fileids() if 'sjt' in fileid]
+        self._morph_fileids=[fileid for fileid in self.fileids() if 'sja' in fileid]
         self._word_tokenizer=RegexpTokenizer('[\n\r]+|'+self.SPACE,gaps=True)
         self._tag_tokenizer=RegexpTokenizer('[\n\r]+|\++|'+self.SPACE,gaps=True)
         
