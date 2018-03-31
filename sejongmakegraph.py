@@ -313,6 +313,34 @@ def make_del_list(merge_block_list,mat_blocks):
     else:
         blocks.append([block for block in mat_blocks])
     return blocks
+def del_dup(postag_temp):
+    for i in range(len(postag_temp)):
+        temp = postag_temp[i]
+        rep_temp = temp.replace("+/",'+')
+        postag_temp[i]=del_slash(rep_temp)
+    return postag_temp
+def del_slash(postag):
+    if len(postag)<5:
+        
+        return postag
+    not_alpha = [0]
+    temp_pos = []
+    for i in range(len(postag)):
+        if not postag[i].isalpha():
+            not_alpha.append(i)
+    not_alpha.append(len(postag)-1)
+    print(postag)
+    temp_pos.append(postag[not_alpha[0]:not_alpha[1]])
+    for i in zip(not_alpha[1:],not_alpha[2:]):
+        if temp_pos[-1]==postag[i[0]:i[1]]:
+            continue
+        else:
+            temp_pos.append(postag[i[0]:i[1]+1])
+    
+    print("+".join(temp_pos))
+        
+        
+        
     
 def make_dict(result_dic,raw_array,tagged_array):
     
@@ -376,7 +404,7 @@ def make_dict(result_dic,raw_array,tagged_array):
 ##                            print(opcodes)
                             continue
                         pyo_temp,dic_temp,postag_temp = mor_insert(pyo_temp,dic_temp,postag_temp,tag_morph)
-                
+                postag_temp=del_dup(postag_temp)
                 pyochung_list.extend(pyo_temp)
                 dic_list.extend(dic_temp)
                 postag_list.extend(postag_temp)
