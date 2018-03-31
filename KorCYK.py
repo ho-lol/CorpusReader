@@ -33,6 +33,7 @@ def morph_generator(phrase,dic,rule):
                 mid = j + k
                 rend = j + i
                 print(lstart,mid,rend)
+                
         
         
         
