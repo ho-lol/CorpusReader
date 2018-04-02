@@ -320,24 +320,30 @@ def del_dup(postag_temp):
         postag_temp[i]=del_slash(rep_temp)
     return postag_temp
 def del_slash(postag):
+    
     if len(postag)<5:
         
         return postag
+
     not_alpha = [0]
     temp_pos = []
     for i in range(len(postag)):
         if not postag[i].isalpha():
             not_alpha.append(i)
-    not_alpha.append(len(postag)-1)
-    print(postag)
+    not_alpha.append(len(postag))
     temp_pos.append(postag[not_alpha[0]:not_alpha[1]])
+
+
+    
     for i in zip(not_alpha[1:],not_alpha[2:]):
-        if temp_pos[-1]==postag[i[0]:i[1]]:
+        if i[0]==i[1]:
+            continue
+        if temp_pos[-1]==postag[i[0]+1:i[1]]:
             continue
         else:
-            temp_pos.append(postag[i[0]:i[1]+1])
+            temp_pos.append(postag[i[0]+1:i[1]])
     
-    print("+".join(temp_pos))
+    return "+".join(temp_pos)
         
         
         
@@ -449,10 +455,10 @@ def make_dict(result_dic,raw_array,tagged_array):
                 
                     
 
-def make_df(result,fn="dictionary1.dic"):
-    with open(fn,'w', encoding="utf8") as f:
-        for k,v in result.items():
-            print(k,v ,file=f)
+def make_df(result,fn="dictionary1.bin"):
+    import pickle
+    with open(fn,'wb') as f:
+        pickle.dump(result,f)
             
 if __name__=="__main__":
     result_dic={}
