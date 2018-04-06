@@ -6,8 +6,8 @@ from nltk.tag.util import str2tuple
 from itertools import chain, tee, islice
 
 ##__space_mark="@SP@"
-__pre_mark = ""  ##사전만들때 꺾쇠<를 넣거나 일단은 cyk를 위해 공백넣음
-__post_mark = ""  ##>
+__pre_mark = "<"  ##사전만들때 꺾쇠<를 넣거나 일단은 cyk를 위해 공백넣음
+__post_mark = ">"  ##>
 
 
 ##rule1=re.compile(r'__[0-9]+')
@@ -101,7 +101,7 @@ def previous_and_next(some_iterable):
     return zip(prevs, items, nexts)
 
 
-def mor_replace(pyo_temp, dic_temp, postag_temp, tag_morph):
+def mor_replace(pyo_temp, dic_temp, postag_temp, tag_morph,fraction):
     prev_raw = pyo_temp[-2]
     prev_dic = dic_temp[-2]
     prev_postag = postag_temp[-2]
@@ -171,7 +171,7 @@ def mor_freplace(pyo_temp, dic_temp, postag_temp, tag_morph):
         i = i.replace('/', '')
 
 
-def mor_insert(pyo_temp, dic_temp, postag_temp, tag_morph):
+def mor_insert(pyo_temp, dic_temp, postag_temp, tag_morph,fraction):
     prev_raw = pyo_temp[-2]
 
     prev_dic = dic_temp[-2]
@@ -405,7 +405,7 @@ def make_dict(result_dic, raw_array, tagged_array):
 
                     if curr[0] == "replace":
                         if prev != None:
-                            pyo_temp, dic_temp, postag_temp = mor_replace(pyo_temp, dic_temp, postag_temp, tag_morph)
+                            pyo_temp, dic_temp, postag_temp = mor_replace(pyo_temp, dic_temp, postag_temp, tag_morph,fraction)
                             if nxt != None:  # replace,insert 이런경우도 잇을까?
                                 if nxt[0] == "insert":
                                     print("리플레이스 인설트")
@@ -422,7 +422,7 @@ def make_dict(result_dic, raw_array, tagged_array):
                             ##                            print(tag_word)
                             ##                            print(opcodes)
                             continue
-                        pyo_temp, dic_temp, postag_temp = mor_insert(pyo_temp, dic_temp, postag_temp, tag_morph)
+                        pyo_temp, dic_temp, postag_temp = mor_insert(pyo_temp, dic_temp, postag_temp, tag_morph,fraction)
                 postag_temp = del_dup(postag_temp)
                 pyochung_list.extend(pyo_temp)
                 dic_list.extend(dic_temp)
@@ -456,6 +456,10 @@ def make_df(result, fn="dictionary1.bin"):
     import pickle
     with open(fn, 'wb') as f:
         pickle.dump(result, f)
+def make_df_txt(result, fn="dictionary1.txt"):
+    with open(fn,'w') as f:
+        for k,v in result.items():
+            print(k,v, file=f)
 
 
 if __name__ == "__main__":
@@ -486,5 +490,5 @@ if __name__ == "__main__":
     make_dict(result_dic, raw_array, tagged_array)
 
     print("사전만들기완료")
-    make_df(result_dic)
+    make_df_txt(result_dic)
 # 딕셔너리가 본디렉토리가 아니라 세종코퍼스아래디렉토리로 가는 문제 및 exception processing필
