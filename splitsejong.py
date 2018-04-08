@@ -26,7 +26,7 @@ def split_fraction(path, fpatten='sj[0-9][0-9]', encoding='utf8'):
 
         sent_rule = re.compile('(.+?)\n\n', re.DOTALL)
         del_sent_num_rule = re.compile('# \d+ / \d+\n')
-        word_morph_rule = re.compile(r'(?P<raw>.+)[ \t]+(?P<tag>.+)[\n]*')
+        #word_morph_rule = re.compile(r'(?P<raw>.+)[ \t]+(?P<tag>.+)[\n]*')
 
         for sent in sent_rule.findall(text):
             del_sent_num = del_sent_num_rule.sub('', sent)

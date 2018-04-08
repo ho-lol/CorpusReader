@@ -16,9 +16,9 @@ def count_dict(dic, key):
         dic[key] = 1
 
 
-def make_df(result, fn):
+def make_df(dic, fn):
     with open(fn, 'w', encoding="utf8") as f:
-        for k, v in result.items():
+        for k, v in dic.items():
             print(k, v, file=f)
 
 

@@ -1,5 +1,4 @@
 from corpusReaderk import *
-import re
 from nltk.corpus.util import LazyCorpusLoader
 sejong = LazyCorpusLoader(
     'sejong', 
