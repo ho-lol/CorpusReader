@@ -24,6 +24,7 @@ def make_df(dic, fn):
 
 if __name__ == "__main__":
     result = {}
+    a=0
     for cur, nxt in pairwise(sejong.sejong.tagged_morphs()):
         count_dict(result, cur[1] + " " + nxt[1])
     make_df(result, "count_bigramtag.txt")
