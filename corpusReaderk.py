@@ -3,7 +3,7 @@ from nltk.tokenize import *
 
 
 class SejongCorpusReader(CategorizedCorpusReader, TaggedCorpusReader):
-    SPACE = "@SP@"
+    SPACE = " "
 
     def __init__(self, *args, **kwargs):
         """
@@ -43,7 +43,7 @@ class SejongCorpusReader(CategorizedCorpusReader, TaggedCorpusReader):
 
     def words(self, fileids=None, categories=None):
         self._sep = ''
-        self._word_tokenizer = self._word_tokenizer
+        #self._word_tokenizer = self._word_tokenizer
         return TaggedCorpusReader.words(
             self, self._resolve(self._raw_fileids, categories))
 
