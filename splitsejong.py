@@ -15,7 +15,11 @@ def make_file(wfn, data, encoding='utf8'):
         print("\n\n" + "\n\n\n".join(" ".join(e) for e in data) + "\n\n\n", file=f)
 
 
-def split_fraction(path, fpatten='sj[0-9][0-9]', encoding='utf8'):
+def split_fraction(path, fpatten = 'sj[0-9][0-9]', encoding='utf8'):
+    """
+
+    :type fpatten: File pattern of Corpus
+    """
     files = path.glob(fpatten)  ##glob 패턴이 이상함 sj\d+이 안된당
 
     for file in files:

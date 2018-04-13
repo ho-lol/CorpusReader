@@ -1,9 +1,11 @@
+from typing import List, Any
+
 from nltk.corpus.reader.tagged import *
 from nltk.tokenize import *
 
 
 class SejongCorpusReader(CategorizedCorpusReader, TaggedCorpusReader):
-    SPACE = " "
+    _SPACE = " "
 
     def __init__(self, *args, **kwargs):
         """
@@ -17,8 +19,8 @@ class SejongCorpusReader(CategorizedCorpusReader, TaggedCorpusReader):
         self._raw_fileids = [fileid for fileid in self.fileids() if 'sjr' in fileid]
         self._tagm_fileids = [fileid for fileid in self.fileids() if 'sjt' in fileid]
         self._morph_fileids = [fileid for fileid in self.fileids() if 'sja' in fileid]
-        self._word_tokenizer = RegexpTokenizer('[\n\r]+|' + self.SPACE, gaps=True)
-        self._tag_tokenizer = RegexpTokenizer('[\n\r]+|\++|' + self.SPACE, gaps=True)
+        self._phrase_tokenizer = RegexpTokenizer('[\n\r]+|' + self._SPACE, gaps=True)
+        self._tag_tokenizer = RegexpTokenizer('[\n\r]+|\++|' + self._SPACE, gaps=True)
 
         ## 위에 파일아이디들도 스마트하게 바꿀수 있는 방
         ## 워드 토크나이저 태그 토크나이저 다 따로 재생성 하고 sep도 각 함수마다 다 따로 줫는데 이것을 좀더 스마트하게 바꾸는방법
@@ -60,7 +62,8 @@ class SejongCorpusReader(CategorizedCorpusReader, TaggedCorpusReader):
             self, self._resolve(self._tagm_fileids, categories))
 
     def tagged_words(self, fileids=None, categories=None, tagset=None):
-        self._word_tokenizer = self._word_tokenizer
+
+        self._word_tokenizer = self._phrase_tokenizer
         self._sep = ''
         return TaggedCorpusReader.tagged_words(
             self, self._resolve(self._tagm_fileids, categories))
@@ -71,6 +74,17 @@ class SejongCorpusReader(CategorizedCorpusReader, TaggedCorpusReader):
         return TaggedCorpusReader.tagged_sents(
             self, self._resolve(self._tagm_fileids, categories), tagset)
 
+    def tagged_phrase_sents(self, fileids=None, categories=None, tagset=None):
+        self._sep = ''
+        self._word_tokenizer = self._phrase_tokenizer
+        return TaggedCorpusReader.tagged_sents(
+            self, self._resolve(self._tagm_fileids, categories), tagset)
+        # result: List[List[Any]] = []
+        # for sent in TaggedCorpusReader.tagged_sents(
+        #     self, self._resolve(self._tagm_fileids, categories), tagset):
+        #     result.append([wordset[0] for wordset in sent])
+        # return result
+    
     def tagged_paras(self, fileids=None, categories=None, tagset=None):
         self._word_tokenizer = self._tag_tokenizer
         return TaggedCorpusReader.tagged_paras(
