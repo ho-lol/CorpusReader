@@ -35,15 +35,13 @@ class SejongCorpusReader(CategorizedCorpusReader, TaggedCorpusReader):
         return TaggedCorpusReader.raw(
             self, self._resolve(self._raw_fileids, categories))
 
-    def morphs(self, fileids=None, categories=None, Separator=''):
-        self._sep = Separator
-        self._word_tokenizer = self._word_tokenizer
+    def morphs(self, fileids=None, categories=None):
+        self._word_tokenizer = self._tag_tokenizer
         return TaggedCorpusReader.words(
             self, self._resolve(self._morph_fileids, categories))
 
     def words(self, fileids=None, categories=None):
         self._sep = ''
-        #self._word_tokenizer = self._word_tokenizer
         return TaggedCorpusReader.words(
             self, self._resolve(self._raw_fileids, categories))
 

@@ -13,7 +13,8 @@ sejong = LazyCorpusLoader(
 ##for i in sent.findall(f):
 ##    remove_sentnum=re.compile('# \d+ / \d+\n').sub('',i)
 ##    print(remove_sentnum)
-for i in sejong.words():
+print(sejong.morphs())
+for i in range(100):
     assert isinstance(i, object)
-    print(i)
+    print(sejong.tagged_words()[i])
     print("\n")

@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b9b7f827-e88b-4c77-b9e1-847102396949" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/corpusReaderk.py" beforeDir="false" afterPath="$PROJECT_DIR$/corpusReaderk.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sejong.py" beforeDir="false" afterPath="$PROJECT_DIR$/sejong.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sejongmakegraph.py" beforeDir="false" afterPath="$PROJECT_DIR$/sejongmakegraph.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -51,11 +51,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sejong.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="sejong.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sejong.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="8" column="46" lean-forward="true" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
+            <state relative-caret-position="285">
+              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
               <folding>
                 <element signature="e#0#27#0" expanded="true" />
               </folding>
@@ -66,7 +66,7 @@
       <file leaf-file-name="sejongmakegraph.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sejongmakegraph.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="738">
+            <state relative-caret-position="9443">
               <caret line="503" column="27" selection-start-line="503" selection-start-column="27" selection-end-line="503" selection-end-column="27" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
@@ -90,7 +90,7 @@
       <file leaf-file-name="chunkers.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chunkers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="551">
+            <state relative-caret-position="475">
               <caret line="29" column="24" selection-start-line="29" selection-start-column="24" selection-end-line="29" selection-end-column="24" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
@@ -99,11 +99,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="corpusReaderk.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="corpusReaderk.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/corpusReaderk.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+            <state relative-caret-position="1064">
+              <caret line="56" column="23" lean-forward="true" selection-start-line="56" selection-start-column="23" selection-end-line="56" selection-end-column="23" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -114,8 +114,8 @@
       <file leaf-file-name="tagged.py" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/site-packages/nltk/corpus/reader/tagged.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2565">
-              <caret line="195" column="49" lean-forward="true" selection-start-line="195" selection-start-column="49" selection-end-line="195" selection-end-column="49" />
+            <state relative-caret-position="682">
+              <caret line="97" column="45" lean-forward="true" selection-start-line="97" selection-start-column="45" selection-end-line="97" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -185,7 +185,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.sejong">
+  <component name="RunManager" selected="Python.corpusReaderk">
     <configuration name="KorCYK" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="CorpusReader" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -285,8 +285,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.sejong" />
         <item itemvalue="Python.corpusReaderk" />
+        <item itemvalue="Python.sejong" />
         <item itemvalue="Python.sejongmakegraph" />
         <item itemvalue="Python.splitsejong" />
         <item itemvalue="Python.KorCYK" />
@@ -311,7 +311,14 @@
       <option name="project" value="LOCAL" />
       <updated>1523250279727</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="1. 브라운리더와 비교해서 명확하게 결정지어서 corpusreaderK완성">
+      <created>1523550720372</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1523550720372</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -344,7 +351,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="파이참 연동연습중." />
-    <option name="LAST_COMMIT_MESSAGE" value="파이참 연동연습중." />
+    <MESSAGE value="1. 브라운리더와 비교해서 명확하게 결정지어서 corpusreaderK완성" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. 브라운리더와 비교해서 명확하게 결정지어서 corpusreaderK완성" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -773,16 +781,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/site-packages/nltk/corpus/reader/tagged.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2565">
-          <caret line="195" column="49" lean-forward="true" selection-start-line="195" selection-start-column="49" selection-end-line="195" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sejongmakegraph.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="738">
+        <state relative-caret-position="9443">
           <caret line="503" column="27" selection-start-line="503" selection-start-column="27" selection-end-line="503" selection-end-column="27" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
@@ -792,7 +793,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chunkers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
+        <state relative-caret-position="475">
           <caret line="29" column="24" selection-start-line="29" selection-start-column="24" selection-end-line="29" selection-end-column="24" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
@@ -810,22 +811,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/corpusReaderk.py">
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/site-packages/nltk/corpus/reader/tagged.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="682">
+          <caret line="97" column="45" lean-forward="true" selection-start-line="97" selection-start-column="45" selection-end-line="97" selection-end-column="45" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sejong.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="46" lean-forward="true" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
+        <state relative-caret-position="285">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/corpusReaderk.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1064">
+          <caret line="56" column="23" lean-forward="true" selection-start-line="56" selection-start-column="23" selection-end-line="56" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
