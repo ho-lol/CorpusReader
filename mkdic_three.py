@@ -394,6 +394,7 @@ def make_dict(result_dic, raw_array, tagged_array):
                     pyochung_list.append(pyochung)
                     dic_list.append(pyochung)
                     postag_list.append(postag)
+                    continue
 
             elif not include_delete(opcodes):  ##Delete가 경우가 달라서 Delete만 따로
                 pyo_temp, dic_temp, postag_temp = [], [], []

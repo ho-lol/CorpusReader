@@ -24,9 +24,8 @@ def rule_exist(f, b, rule):
     rule_f = re.compile("[a-zA-Z]+$")
     res_b = rule_b.search(str(b[2]))
     res_f = rule_f.search(str(f[2]))
-    if res_f!=None  and  res_b!=None :
-        if [res_f.group(), res_b.group()] in rule:
-            return True
+    if res_f is not None and res_b is not None and [res_f.group(), res_b.group()] in rule:
+        return True
     return False
 
 
@@ -38,11 +37,8 @@ def merge_possible(table, lstart, mid, rend, dic, rule, phrase):
     if front != __empty_space and back != __empty_space:
         for ele_f in front:
             for ele_b in back:
-
-
                 if rule_exist(ele_f, ele_b, rule):
                     temp = [[100, str(ele_f[1]) + "+" + str(ele_b[1]), str(ele_f[2]) + "+" + str(ele_b[2])]]
-
                     result.append(temp)
 
     if dic.get(phrase[lstart:mid]) != None:
@@ -53,7 +49,7 @@ def merge_possible(table, lstart, mid, rend, dic, rule, phrase):
 def del_dup(result):
     temp = []
     for i in result:
-        if not i in temp:
+        if i not in temp:
             temp.append(i)
     return temp
 
