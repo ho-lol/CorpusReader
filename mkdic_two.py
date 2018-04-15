@@ -21,6 +21,10 @@ def pairwise(iterable: object) -> object:
     return zip(a, b)
 
 
+def remove_plus(string):
+    return re.compile('\+$').sub('', string)
+
+
 def exist(values, data):
     for i in values:
         if compare(i[1:], data):
@@ -46,9 +50,7 @@ def count_dict(dic, key, value):
         dic[key] = [[1] + [ele for ele in value]]
 
 
-def same_pos(fraction, index):
-    if fraction+1<len(fraction):
-        print(fraction[index],fraction[index+1])
+
 def make_del_block(fraction,raw_word,tagged):
     index_raw, leng_raw, index_tag, leng_tag = 0, 0, 0, 0
     blocks = []
@@ -97,7 +99,31 @@ def make_arrays(fnr, fnt):
     return _raw_array, _tagged_array
 
 
-def generate_block(mat_blocks):
+def split_cur(fraction, raw_index, morph_index, match_length):
+    blocks = []
+    max_len = morph_index + match_length
+    if match_length == 1:
+        return None
+    postag = fraction[morph_index][1]
+    morph_length = 0
+    for index in range(morph_index,morph_index+match_length):
+        if remove_plus(postag) != remove_plus(fraction[index][1]):
+            length = index-morph_index
+            blocks.append([raw_index, raw_index+length, morph_index, morph_index+length])
+            postag = fraction[index][1]
+            morph_index = index
+            raw_index = raw_index + length
+            match_length = match_length - (index - morph_index)
+            morph_length = 0
+        morph_length += 1
+
+
+    blocks.append([raw_index, raw_index+morph_length, morph_index, morph_index+morph_length])
+    if len(blocks) > 1:
+        return blocks
+    return None
+
+def generate_block(fraction, mat_blocks):
     blocks = []
     if mat_blocks[0][0] != 0:#앞이 분리되었을때
         blocks.append([0, mat_blocks[0][0], 0, mat_blocks[0][1]])
@@ -109,12 +135,26 @@ def generate_block(mat_blocks):
         nxt_morph_index = nxt[1]
 
         blocks.append([raw_word_index, raw_word_index + match_length, morph_index, morph_index + match_length])
+        split_data = split_cur(fraction, raw_word_index, morph_index, match_length)
+
         if raw_word_index+match_length == nxt_raw_index and morph_index+match_length == nxt_morph_index:
-            continue
+            if split_data is None:
+                continue
+            else:
+                print("같으나 분리")
+                blocks.pop()
+                blocks.extend(split_data)
+
+
         elif raw_word_index+match_length == nxt_raw_index and morph_index+match_length != nxt_morph_index:##insert의 경우
-            blocks[-1][3]=nxt_morph_index-morph_index
+            blocks[-1][3] = nxt_morph_index-morph_index
         else:
+            if split_data is not None:
+                print("리플레이스 같으나 분리")
+                blocks.pop()
+                blocks.extend(split_data)
             blocks.append([raw_word_index + match_length, nxt_raw_index, morph_index + match_length, nxt_morph_index])
+
     blocks.append([mat_blocks[-1][0], 0, mat_blocks[-1][1], 0])
     return blocks
 
@@ -171,9 +211,7 @@ def make_dict(result_dic, raw_array, tagged_array):
                 morph, tag = nltk.str2tuple(morph_tag)
                 for syl in morph:
                     fraction.append([syl, tag])
-            #     fraction[-1][0] = fraction[-1][0]
                 fraction[-1][1] = fraction[-1][1]+"+"  ##태그 뒤에 +붙이기
-            # fraction[-1][0] = fraction[-1][0][0]
             fraction[-1][1] = fraction[-1][1][:-1]
 
             SM = SequenceMatcher(None, raw_word, tagged)
@@ -187,7 +225,7 @@ def make_dict(result_dic, raw_array, tagged_array):
                     dic_list.append(tagged)
                     postag_list.append('+'.join([morph_pos[morph_pos.rfind('/')+1:] for morph_pos in tag_morph]))
                     continue
-                blocks=generate_block(mat_blocks)
+                blocks = generate_block(fraction, mat_blocks)
             print(raw_word,tagged)
             result = []
             for cur, nxt in pairwise(blocks):
