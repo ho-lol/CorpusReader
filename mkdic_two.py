@@ -202,8 +202,8 @@ def count_bigram(dic, key):
         dic[key] = 1
 
 
-def make_dict(raw_array, tagged_array):
-    result_dic = {}
+def make_dict(raw_array, tagged_array, result_dic, bigram_dic):
+    # result_dic = {}
     for raw_sent, tagged_sent in zip(raw_array, tagged_array):
         if not len(raw_sent) == len(tagged_sent):
             continue
@@ -250,7 +250,7 @@ def make_dict(raw_array, tagged_array):
                     result[-1][2][-1] = result[-1][2][-1] + __pre_mark
                     post_tag_list[0] = __post_mark + post_tag_list[0]
                 result.append([raw, mor, post_tag_list])
-            bigram_dic = {}
+            # bigram_dic = {}
             collect_bigram = "@@SP@@"
             for data in result:
                 tags = data[2]
@@ -260,6 +260,7 @@ def make_dict(raw_array, tagged_array):
                 count_dict(result_dic, str(data[0]), [data[1], postag_result])
             make_bigram(bigram_dic, collect_bigram)
     return result_dic, bigram_dic
+
 
 def make_df(result, fn="dictionary1.bin"):
     with open(fn, 'wb') as f:
@@ -288,9 +289,10 @@ if __name__ == "__main__":
             files_tagged.append(fn)
 
     # 테스트용 나중에 삭제바람
-    # files_raw = [files_raw[10]]
-    # files_tagged = [files_tagged[10]]
-
+    # files_raw = [files_raw[0]]
+    # files_tagged = [files_tagged[0]]
+    dic = {}
+    big = {}
     raw_array = []
     tagged_array = []
     for i in range(len(files_raw)):
@@ -298,9 +300,9 @@ if __name__ == "__main__":
         raw_array.extend(temp_raw_array)
         tagged_array.extend(temp_tagged_array)
 
-    print("리스트만들기 완료")
-    dic, big = make_dict(raw_array, tagged_array)
-    print("사전만들기완료")
+        print("리스트만들기 완료")
+        make_dict(raw_array, tagged_array, dic, big)
+        print("사전만들기완료")
     os.chdir(curr_path)
     make_df(dic, "dictionary.bin")
     make_df(big, "count_bigram.bin")
@@ -308,4 +310,4 @@ if __name__ == "__main__":
     # print("사전만들기완료")
     #
     # os.chdir(curr_path)
-    # make_df_txt(result_dic)
+    # make_df_txt(dic)

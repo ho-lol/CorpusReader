@@ -4,6 +4,7 @@
     <list default="true" id="b9b7f827-e88b-4c77-b9e1-847102396949" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/count_bigram.bin" beforeDir="false" afterPath="$PROJECT_DIR$/count_bigram.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dictionary1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/dictionary1.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mkdic_two.py" beforeDir="false" afterPath="$PROJECT_DIR$/mkdic_two.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,8 +19,8 @@
       <file leaf-file-name="count_bigramtag.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/count_bigramtag.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="47" column="34" selection-start-line="47" selection-start-column="34" selection-end-line="47" selection-end-column="34" />
+            <state relative-caret-position="448">
+              <caret line="61" lean-forward="true" selection-start-line="61" selection-end-line="61" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -35,15 +36,14 @@
       <file leaf-file-name="mkdic_two.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mkdic_two.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="283" column="37" lean-forward="true" selection-start-line="283" selection-start-column="37" selection-end-line="283" selection-end-column="37" />
+            <state relative-caret-position="429">
+              <caret line="312" column="22" lean-forward="true" selection-start-line="312" selection-start-column="22" selection-end-line="312" selection-end-column="22" />
               <folding>
                 <element signature="e#272#421#0" />
                 <element signature="e#453#493#0" />
                 <element signature="e#525#637#0" />
                 <element signature="e#671#834#0" />
                 <element signature="e#874#1047#0" />
-                <element signature="e#1101#2370#0" />
                 <element signature="e#2404#2802#0" />
                 <element signature="e#2872#3679#0" />
                 <element signature="e#3727#5066#0" />
@@ -52,7 +52,7 @@
                 <element signature="e#5651#5811#0" />
                 <element signature="e#5775#5873#0" />
                 <element signature="e#5864#5969#0" />
-                <element signature="e#6099#9036#0" />
+                <element signature="e#6091#9009#0" />
                 <element signature="e#9003#9059#0" />
                 <element signature="e#8903#9012#0" />
               </folding>
@@ -63,7 +63,7 @@
       <file leaf-file-name="mkdic_three.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mkdic_three.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="92">
+            <state relative-caret-position="-464">
               <caret line="458" selection-start-line="458" selection-end-line="461" selection-end-column="30" />
             </state>
           </provider>
@@ -72,8 +72,8 @@
       <file leaf-file-name="KorCYK.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/KorCYK.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="523">
-              <caret line="81" column="31" selection-start-line="81" selection-start-column="31" selection-end-line="81" selection-end-column="31" />
+            <state relative-caret-position="1216">
+              <caret line="64" column="35" lean-forward="true" selection-start-line="64" selection-start-column="35" selection-end-line="64" selection-end-column="35" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -347,20 +347,28 @@
       <option name="project" value="LOCAL" />
       <updated>1523789148127</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="돌아가는 시간이 너무오래걸려서 일단 돌리고 생각중">
+      <created>1523803214318</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1523803214318</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15729167" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="R Packages" order="3" />
       <window_info anchor="right" id="R Graphics" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5005208" side_tool="true" visible="true" weight="0.35" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5005208" side_tool="true" weight="0.31170213" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49947917" visible="true" weight="0.35" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49947917" visible="true" weight="0.34893617" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -405,7 +413,8 @@
     <MESSAGE value="카운트 바이그램 정의 다시하고 이제 사전을 제대로 만들도록 합니다.&#10;문제들 제기된거 교수님한테 말" />
     <MESSAGE value="후 일단 2개짜리로 짜봣는데 영 좀 아니긴한데 그래도 다시 해봅니다.&#10;더위식힌다 는데도 이런거 어떻게...제발..." />
     <MESSAGE value="일단 핵심 코어 알고리즘 완성한듯? 이제 카운트바이그램 재정의와 딕트설정만 하면 1차로 끈남 교수님한테 까이고 다시 제작예정" />
-    <option name="LAST_COMMIT_MESSAGE" value="일단 핵심 코어 알고리즘 완성한듯? 이제 카운트바이그램 재정의와 딕트설정만 하면 1차로 끈남 교수님한테 까이고 다시 제작예정" />
+    <MESSAGE value="돌아가는 시간이 너무오래걸려서 일단 돌리고 생각중" />
+    <option name="LAST_COMMIT_MESSAGE" value="돌아가는 시간이 너무오래걸려서 일단 돌리고 생각중" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -440,7 +449,6 @@
             <element signature="e#525#637#0" />
             <element signature="e#671#834#0" />
             <element signature="e#874#1047#0" />
-            <element signature="e#1101#2370#0" />
             <element signature="e#2404#2802#0" />
             <element signature="e#2872#3679#0" />
             <element signature="e#3727#5066#0" />
@@ -449,7 +457,7 @@
             <element signature="e#5651#5811#0" />
             <element signature="e#5775#5873#0" />
             <element signature="e#5864#5969#0" />
-            <element signature="e#6099#9036#0" />
+            <element signature="e#6091#9009#0" />
             <element signature="e#9003#9059#0" />
             <element signature="e#8903#9012#0" />
           </folding>
@@ -472,7 +480,6 @@
             <element signature="e#525#637#0" />
             <element signature="e#671#834#0" />
             <element signature="e#874#1047#0" />
-            <element signature="e#1101#2370#0" />
             <element signature="e#2404#2802#0" />
             <element signature="e#2872#3679#0" />
             <element signature="e#3727#5066#0" />
@@ -481,7 +488,7 @@
             <element signature="e#5651#5811#0" />
             <element signature="e#5775#5873#0" />
             <element signature="e#5864#5969#0" />
-            <element signature="e#6099#9036#0" />
+            <element signature="e#6091#9009#0" />
             <element signature="e#9003#9059#0" />
             <element signature="e#8903#9012#0" />
           </folding>
@@ -565,7 +572,6 @@
             <element signature="e#525#637#0" />
             <element signature="e#671#834#0" />
             <element signature="e#874#1047#0" />
-            <element signature="e#1101#2370#0" />
             <element signature="e#2404#2802#0" />
             <element signature="e#2872#3679#0" />
             <element signature="e#3727#5066#0" />
@@ -574,7 +580,7 @@
             <element signature="e#5651#5811#0" />
             <element signature="e#5775#5873#0" />
             <element signature="e#5864#5969#0" />
-            <element signature="e#6099#9036#0" />
+            <element signature="e#6091#9009#0" />
             <element signature="e#9003#9059#0" />
             <element signature="e#8903#9012#0" />
           </folding>
@@ -648,7 +654,6 @@
             <element signature="e#525#637#0" />
             <element signature="e#671#834#0" />
             <element signature="e#874#1047#0" />
-            <element signature="e#1101#2370#0" />
             <element signature="e#2404#2802#0" />
             <element signature="e#2872#3679#0" />
             <element signature="e#3727#5066#0" />
@@ -657,7 +662,7 @@
             <element signature="e#5651#5811#0" />
             <element signature="e#5775#5873#0" />
             <element signature="e#5864#5969#0" />
-            <element signature="e#6099#9036#0" />
+            <element signature="e#6091#9009#0" />
             <element signature="e#9003#9059#0" />
             <element signature="e#8903#9012#0" />
           </folding>
@@ -731,7 +736,6 @@
             <element signature="e#525#637#0" />
             <element signature="e#671#834#0" />
             <element signature="e#874#1047#0" />
-            <element signature="e#1101#2370#0" />
             <element signature="e#2404#2802#0" />
             <element signature="e#2872#3679#0" />
             <element signature="e#3727#5066#0" />
@@ -740,7 +744,7 @@
             <element signature="e#5651#5811#0" />
             <element signature="e#5775#5873#0" />
             <element signature="e#5864#5969#0" />
-            <element signature="e#6099#9036#0" />
+            <element signature="e#6091#9009#0" />
             <element signature="e#9003#9059#0" />
             <element signature="e#8903#9012#0" />
           </folding>
@@ -876,47 +880,46 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/count_bigramtag.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/KorCYK.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="523">
-          <caret line="81" column="31" selection-start-line="81" selection-start-column="31" selection-end-line="81" selection-end-column="31" />
+        <state relative-caret-position="1216">
+          <caret line="64" column="35" lean-forward="true" selection-start-line="64" selection-start-column="35" selection-end-line="64" selection-end-column="35" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/count_bigramtag.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mkdic_three.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="458" selection-start-line="458" selection-end-line="461" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/count_bigramtag.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="47" column="34" selection-start-line="47" selection-start-column="34" selection-end-line="47" selection-end-column="34" />
+        <state relative-caret-position="448">
+          <caret line="61" lean-forward="true" selection-start-line="61" selection-end-line="61" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/mkdic_three.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-464">
+          <caret line="458" selection-start-line="458" selection-end-line="461" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mkdic_two.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="283" column="37" lean-forward="true" selection-start-line="283" selection-start-column="37" selection-end-line="283" selection-end-column="37" />
+        <state relative-caret-position="429">
+          <caret line="312" column="22" lean-forward="true" selection-start-line="312" selection-start-column="22" selection-end-line="312" selection-end-column="22" />
           <folding>
             <element signature="e#272#421#0" />
             <element signature="e#453#493#0" />
             <element signature="e#525#637#0" />
             <element signature="e#671#834#0" />
             <element signature="e#874#1047#0" />
-            <element signature="e#1101#2370#0" />
             <element signature="e#2404#2802#0" />
             <element signature="e#2872#3679#0" />
             <element signature="e#3727#5066#0" />
@@ -925,7 +928,7 @@
             <element signature="e#5651#5811#0" />
             <element signature="e#5775#5873#0" />
             <element signature="e#5864#5969#0" />
-            <element signature="e#6099#9036#0" />
+            <element signature="e#6091#9009#0" />
             <element signature="e#9003#9059#0" />
             <element signature="e#8903#9012#0" />
           </folding>
