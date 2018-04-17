@@ -5,27 +5,30 @@ from typing import List
 __empty_space = []
 
 
-def load_dict_file(f1="dictionary1.bin", f2="count_bigramtag.txt"):
+def load_dict_file(f1="dictionary.bin", f2="count_bigram.bin"):
     import pickle
-    rule: List[List[str]] = []
     with open(f1, 'rb') as fp:
         morph_dic = pickle.load(fp, encoding='utf-8')
 
-    with open(f2, 'r', encoding='utf8') as fp:
-        for line in fp:
-            cur = line.split()[0]
-            nxt = line.split()[1]
-            rule.append([cur, nxt])
+    with open(f2, 'rb') as fp:
+        rule = pickle.load(fp, encoding='utf-8')
     return morph_dic, rule
 
 
 def rule_exist(f, b, rule):
-    rule_b = re.compile("^[a-zA-Z]+")
-    rule_f = re.compile("[a-zA-Z]+$")
+    rule_b = re.compile("^[>]?[a-zA-Z]+")
+    rule_f = re.compile("[a-zA-Z]+[<]?$")
     res_b = rule_b.search(str(b[2]))
     res_f = rule_f.search(str(f[2]))
-    if res_f is not None and res_b is not None and [res_f.group(), res_b.group()] in rule:
-        return True
+    if res_f is not None and res_b is not None:
+        front = res_f.group()
+        back = res_b.group()
+        if f[-1] == '<' or b[0] == '>':
+            if rule.get(front+" "+back) is not None:
+                return True
+            return False
+        if rule.get(front+" "+back) is not None:
+            return True
     return False
 
 
@@ -41,16 +44,18 @@ def merge_possible(table, lstart, mid, rend, dic, rule, phrase):
                     temp = [[100, str(ele_f[1]) + "+" + str(ele_b[1]), str(ele_f[2]) + "+" + str(ele_b[2])]]
                     result.append(temp)
 
-    if dic.get(phrase[lstart:mid]) != None:
-        result.append(dic.get(phrase[lstart:mid]))
+    if dic.get(phrase[lstart:rend]) != None:
+        result.append(dic.get(phrase[lstart:rend]))
     return result
 
 
 def del_dup(result):
     temp = []
+    tag_temp = []
     for i in result:
-        if i not in temp:
+        if i[2] not in tag_temp:
             temp.append(i)
+            tag_temp.append(i[2])
     return temp
 
 
@@ -78,11 +83,13 @@ def morph_generator(phrase, dic, rule):
                 for ele in merge_possible(table, lstart, mid, rend, dic, rule, phrase):
 
                     table[lstart][rend].extend(ele)
-
+                table[lstart][rend] = del_dup(table[lstart][rend])
     return del_dup(table[0][n])
 
 
 if __name__ == "__main__":
     morph_dic, rule = load_dict_file()
-    result = morph_generator("안녕하세요", morph_dic, rule)
+    result = morph_generator("안녕하세요.", morph_dic, rule)
     print(len(result))
+    pprint.pprint(result[:100])
+

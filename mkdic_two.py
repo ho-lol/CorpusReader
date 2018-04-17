@@ -213,13 +213,16 @@ def make_dict(raw_array, tagged_array, result_dic, bigram_dic):
             tag_morph = re.split("(?<=/[A-Z]{2})\+|(?<=/[A-Z]{3})\+", tag_word)
             fraction = []
             tagged = ''.join([morph_pos[:morph_pos.rfind('/')] for morph_pos in tag_morph])
-
+            for morph in tag_morph:
+                _, postag = nltk.str2tuple(morph)
+                if postag == "NA":
+                    print(tag_word)
+                    continue
             if raw_word == tagged:
                 for morph in tag_morph:
                     pyocheung, postag = nltk.str2tuple(morph)
-                    tag_list = [remove_plus(tag) for tag in postag]
-                    postag_result = "+".join(tag_list)
-                    collect_bigram = collect_bigram + "+" + postag_result
+                    collect_bigram = collect_bigram + "+" + postag
+
                     count_dict(result_dic, str(pyocheung), [pyocheung, postag])
                 make_bigram(bigram_dic, collect_bigram)
                 continue
@@ -269,6 +272,7 @@ def make_dict(raw_array, tagged_array, result_dic, bigram_dic):
                 postag_result = "+".join(tag_list)
                 collect_bigram = collect_bigram + "+" + postag_result
                 count_dict(result_dic, str(data[0]), [data[1], postag_result])
+
             make_bigram(bigram_dic, collect_bigram)
 
 
@@ -282,8 +286,8 @@ def make_df(result, fn="dictionary1.bin"):
 
 def make_df_txt(result, fn="dictionary1.txt"):
     with open(fn, 'w', encoding="utf8") as f:
-        for k, v in result.items():
-            print(k, v, file=f)
+        for k in sorted(result, key=result.get):
+            print(k, result[k], file=f)
 
 
 if __name__ == "__main__":
@@ -317,12 +321,12 @@ if __name__ == "__main__":
         print(str(i)+"리스트만들기 완료")
         make_dict(raw_array, tagged_array, dic, big)
         print(str(i)+"사전만들기완료")
-    print(len_a)
     os.chdir(curr_path)
     make_df(dic, "dictionary.bin")
     make_df(big, "count_bigram.bin")
-
+    make_df_txt(big,"bigram1.txt")
+    make_df_txt(dic,"dictionary1.txt")
     # print("사전만들기완료")
     #
     # os.chdir(curr_path)
-    make_df_txt(dic)
+    # make_df_txt(dic)
