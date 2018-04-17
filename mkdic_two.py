@@ -78,6 +78,8 @@ def make_del_block(fraction,raw_word,tagged):
                         index_raw = nxt_raw
                         index_tag = nxt_merge
                         break
+            blocks.append([index_raw, len(raw_word), index_tag, len(tagged)])
+            return blocks
 
     if leng_raw != 0:
         blocks.append([index_raw, index_raw + leng_raw, index_tag, index_tag + leng_tag])
@@ -203,18 +205,23 @@ def count_bigram(dic, key):
 
 
 def make_dict(raw_array, tagged_array, result_dic, bigram_dic):
-    # result_dic = {}
     for raw_sent, tagged_sent in zip(raw_array, tagged_array):
         if not len(raw_sent) == len(tagged_sent):
             continue
         for raw_word, tag_word in zip(raw_sent, tagged_sent):
+            collect_bigram = "@@SP@@"
             tag_morph = re.split("(?<=/[A-Z]{2})\+|(?<=/[A-Z]{3})\+", tag_word)
             fraction = []
             tagged = ''.join([morph_pos[:morph_pos.rfind('/')] for morph_pos in tag_morph])
+
             if raw_word == tagged:
                 for morph in tag_morph:
                     pyocheung, postag = nltk.str2tuple(morph)
+                    tag_list = [remove_plus(tag) for tag in postag]
+                    postag_result = "+".join(tag_list)
+                    collect_bigram = collect_bigram + "+" + postag_result
                     count_dict(result_dic, str(pyocheung), [pyocheung, postag])
+                make_bigram(bigram_dic, collect_bigram)
                 continue
             for morph_tag in tag_morph:
                 morph, tag = nltk.str2tuple(morph_tag)
@@ -226,14 +233,19 @@ def make_dict(raw_array, tagged_array, result_dic, bigram_dic):
             SM = SequenceMatcher(None, raw_word, tagged)
             if include_delete(SM):
                 blocks = make_del_block(fraction,raw_word, tagged)
+                
 
             else:
+
                 mat_blocks = SM.get_matching_blocks()
                 if len(mat_blocks) == 1:#온 오/vx+ㄴ/etm 혹시 모를 다틀린 형태.
                     postag = '+'.join([morph_pos[morph_pos.rfind('/') + 1:] for morph_pos in tag_morph])
+                    collect_bigram = collect_bigram + "+" + postag
                     count_dict(result_dic, str(raw_word), [tagged, postag])
+                    make_bigram(bigram_dic, collect_bigram)
                     continue
                 blocks = generate_block(fraction, mat_blocks)
+
             result = []
             for cur, nxt in pairwise(blocks):
                 raw = raw_word[cur[0]:cur[1]]
@@ -250,8 +262,7 @@ def make_dict(raw_array, tagged_array, result_dic, bigram_dic):
                     result[-1][2][-1] = result[-1][2][-1] + __pre_mark
                     post_tag_list[0] = __post_mark + post_tag_list[0]
                 result.append([raw, mor, post_tag_list])
-            # bigram_dic = {}
-            collect_bigram = "@@SP@@"
+
             for data in result:
                 tags = data[2]
                 tag_list = [remove_plus(tag) for tag in tags]
@@ -259,6 +270,8 @@ def make_dict(raw_array, tagged_array, result_dic, bigram_dic):
                 collect_bigram = collect_bigram + "+" + postag_result
                 count_dict(result_dic, str(data[0]), [data[1], postag_result])
             make_bigram(bigram_dic, collect_bigram)
+
+
     return result_dic, bigram_dic
 
 
@@ -274,8 +287,8 @@ def make_df_txt(result, fn="dictionary1.txt"):
 
 
 if __name__ == "__main__":
-    curr_path: Union[bytes, str] = os.path.dirname(os.path.abspath(__file__))
-    path: object = nltk.data.find('corpora\\sejong').path
+    curr_path = os.path.dirname(os.path.abspath(__file__))
+    path = nltk.data.find('corpora\\sejong').path
     assert isinstance(path, object)
     os.chdir(path)
     files_raw = []
@@ -288,21 +301,23 @@ if __name__ == "__main__":
         elif "sjt" in fn:
             files_tagged.append(fn)
 
-    # 테스트용 나중에 삭제바람
-    # files_raw = [files_raw[0]]
-    # files_tagged = [files_tagged[0]]
+    #테스트용 나중에 삭제바람
+    # files_raw = [files_raw[11]]
+    # files_tagged = [files_tagged[11]]
     dic = {}
     big = {}
     raw_array = []
     tagged_array = []
+    len_a =0
     for i in range(len(files_raw)):
         temp_raw_array, temp_tagged_array = make_arrays(fnr=files_raw[i], fnt=files_tagged[i])
-        raw_array.extend(temp_raw_array)
-        tagged_array.extend(temp_tagged_array)
-
-        print("리스트만들기 완료")
+        raw_array = temp_raw_array
+        tagged_array = temp_tagged_array
+        len_a = len_a + len(raw_array)
+        print(str(i)+"리스트만들기 완료")
         make_dict(raw_array, tagged_array, dic, big)
-        print("사전만들기완료")
+        print(str(i)+"사전만들기완료")
+    print(len_a)
     os.chdir(curr_path)
     make_df(dic, "dictionary.bin")
     make_df(big, "count_bigram.bin")
@@ -310,4 +325,4 @@ if __name__ == "__main__":
     # print("사전만들기완료")
     #
     # os.chdir(curr_path)
-    # make_df_txt(dic)
+    make_df_txt(dic)
