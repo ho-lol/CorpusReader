@@ -69,7 +69,8 @@ def make_del_block(fraction,raw_word,tagged):
                 leng_tag = 0
             nxt = index_raw + 1
             nxt_t = index_tag + 1
-            for nxt_raw in range(nxt, len(raw_word)):
+            nxt_raw = nxt
+            while nxt_raw < len(raw_word):
                 for nxt_merge in range(nxt_t, len(tagged)):
                     if raw_word[nxt_raw] == tagged[nxt_merge]:
                         blocks.append([index_raw, nxt_raw, index_tag, nxt_merge])
@@ -77,7 +78,9 @@ def make_del_block(fraction,raw_word,tagged):
                         leng_tag = 0
                         index_raw = nxt_raw
                         index_tag = nxt_merge
+                        nxt_raw = len(raw_word)
                         break
+                nxt_raw += 1
             blocks.append([index_raw, len(raw_word), index_tag, len(tagged)])
             return blocks
 
@@ -144,8 +147,12 @@ def generate_block(fraction, mat_blocks):
             else:
                 blocks.pop()
                 blocks.extend(split_data)
-        elif raw_word_index+match_length == nxt_raw_index and morph_index+match_length != nxt_morph_index:##insert의 경우
-            blocks[-1][3] = nxt_morph_index-morph_index
+        elif raw_word_index+match_length == nxt_raw_index and morph_index+match_length != nxt_morph_index:
+            ##insert의 경우
+            if split_data is not None:
+                blocks.pop()
+                blocks.extend(split_data)
+            blocks[-1][3] = nxt_morph_index
         else:
             if split_data is not None:
                 blocks.pop()
@@ -190,7 +197,8 @@ def mark_attach(prev, cur):
 
 def make_bigram(bigram_dic, collect_bigram):
     for cur_t, nxt_t in pairwise(collect_bigram.split('+')):
-        count_bigram(bigram_dic, cur_t+" "+nxt_t )
+        if cur_t is not None and nxt_t is not None:
+            count_bigram(bigram_dic, cur_t+" "+nxt_t )
 
 
 def count_bigram(dic, key):
@@ -206,25 +214,24 @@ def count_bigram(dic, key):
 
 def make_dict(raw_array, tagged_array, result_dic, bigram_dic):
     for raw_sent, tagged_sent in zip(raw_array, tagged_array):
+        collect_bigram = "START"
         if not len(raw_sent) == len(tagged_sent):
             continue
         for raw_word, tag_word in zip(raw_sent, tagged_sent):
-            collect_bigram = "@@SP@@"
+            if "NA" in tag_word:
+                continue
+            if collect_bigram != "START":
+                collect_bigram += "+@@SP@@"
             tag_morph = re.split("(?<=/[A-Z]{2})\+|(?<=/[A-Z]{3})\+", tag_word)
+
             fraction = []
             tagged = ''.join([morph_pos[:morph_pos.rfind('/')] for morph_pos in tag_morph])
-            for morph in tag_morph:
-                _, postag = nltk.str2tuple(morph)
-                if postag == "NA":
-                    print(tag_word)
-                    continue
+
             if raw_word == tagged:
                 for morph in tag_morph:
                     pyocheung, postag = nltk.str2tuple(morph)
                     collect_bigram = collect_bigram + "+" + postag
-
                     count_dict(result_dic, str(pyocheung), [pyocheung, postag])
-                make_bigram(bigram_dic, collect_bigram)
                 continue
             for morph_tag in tag_morph:
                 morph, tag = nltk.str2tuple(morph_tag)
@@ -245,10 +252,29 @@ def make_dict(raw_array, tagged_array, result_dic, bigram_dic):
                     postag = '+'.join([morph_pos[morph_pos.rfind('/') + 1:] for morph_pos in tag_morph])
                     collect_bigram = collect_bigram + "+" + postag
                     count_dict(result_dic, str(raw_word), [tagged, postag])
-                    make_bigram(bigram_dic, collect_bigram)
                     continue
                 blocks = generate_block(fraction, mat_blocks)
 
+
+
+            raw_temp=''
+            tagged_temp=''
+            for i in blocks:
+                raw_temp += raw_word[i[0]:i[1]]
+                tagged_temp += tagged[i[2]:i[3]]
+            if raw_word != raw_temp:
+                print("로우이상")
+                print(raw_word,raw_temp)
+                print(raw_word,tagged)
+                print(tag_word)
+                print(blocks)
+            if tagged != tagged_temp:
+                print("템프이상")
+                # print(tagged,tagged_temp)
+
+                print(raw_word,tagged)
+                print(tag_word)
+                print(blocks)
             result = []
             for cur, nxt in pairwise(blocks):
                 raw = raw_word[cur[0]:cur[1]]
@@ -265,16 +291,17 @@ def make_dict(raw_array, tagged_array, result_dic, bigram_dic):
                     result[-1][2][-1] = result[-1][2][-1] + __pre_mark
                     post_tag_list[0] = __post_mark + post_tag_list[0]
                 result.append([raw, mor, post_tag_list])
-
+                if "앞대문" in mor:
+                    print("a")
             for data in result:
                 tags = data[2]
                 tag_list = [remove_plus(tag) for tag in tags]
                 postag_result = "+".join(tag_list)
                 collect_bigram = collect_bigram + "+" + postag_result
+
                 count_dict(result_dic, str(data[0]), [data[1], postag_result])
 
-            make_bigram(bigram_dic, collect_bigram)
-
+        make_bigram(bigram_dic, collect_bigram)
 
     return result_dic, bigram_dic
 
@@ -306,8 +333,8 @@ if __name__ == "__main__":
             files_tagged.append(fn)
 
     #테스트용 나중에 삭제바람
-    # files_raw = [files_raw[11]]
-    # files_tagged = [files_tagged[11]]
+    files_raw = [files_raw[0]]
+    files_tagged = [files_tagged[0]]
     dic = {}
     big = {}
     raw_array = []
@@ -322,8 +349,8 @@ if __name__ == "__main__":
         make_dict(raw_array, tagged_array, dic, big)
         print(str(i)+"사전만들기완료")
     os.chdir(curr_path)
-    make_df(dic, "dictionary.bin")
-    make_df(big, "count_bigram.bin")
+    # make_df(dic, "dictionary.bin")
+    # make_df(big, "count_bigram.bin")
     make_df_txt(big,"bigram1.txt")
     make_df_txt(dic,"dictionary1.txt")
     # print("사전만들기완료")

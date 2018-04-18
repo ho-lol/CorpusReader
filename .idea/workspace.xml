@@ -4,9 +4,9 @@
     <list default="true" id="b9b7f827-e88b-4c77-b9e1-847102396949" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/count_bigram.bin" beforeDir="false" afterPath="$PROJECT_DIR$/count_bigram.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dictionary.bin" beforeDir="false" afterPath="$PROJECT_DIR$/dictionary.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dictionary1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/dictionary1.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mkdic_two.py" beforeDir="false" afterPath="$PROJECT_DIR$/mkdic_two.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sjcorerr.txt" beforeDir="false" afterPath="$PROJECT_DIR$/sjcorerr.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,7 +20,7 @@
       <file leaf-file-name="count_bigramtag.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/count_bigramtag.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1083">
+            <state relative-caret-position="1159">
               <caret line="61" selection-start-line="61" selection-end-line="61" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
@@ -29,26 +29,37 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="corpusReaderk.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/corpusReaderk.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="587">
+              <caret line="86" column="4" selection-start-line="86" selection-start-column="4" selection-end-line="86" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="mkdic_two.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mkdic_two.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="369">
-              <caret line="320" column="13" selection-start-line="320" selection-start-column="13" selection-end-line="320" selection-end-column="13" />
+            <state relative-caret-position="245">
+              <caret line="334" column="34" selection-start-line="334" selection-start-column="34" selection-end-line="334" selection-end-column="34" />
               <folding>
                 <element signature="e#286#435#0" />
                 <element signature="e#467#507#0" />
                 <element signature="e#539#663#0" />
                 <element signature="e#697#860#0" />
-                <element signature="e#900#1073#0" />
-                <element signature="e#1126#2395#0" />
-                <element signature="e#2429#2827#0" />
-                <element signature="e#2897#3662#0" />
-                <element signature="e#3711#4978#0" />
-                <element signature="e#5009#5103#0" />
-                <element signature="e#5131#5528#0" />
-                <element signature="e#5563#5723#0" />
-                <element signature="e#5775#5882#0" />
-                <element signature="e#5917#6022#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="KorCYK.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/KorCYK.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-401">
+              <caret line="47" column="51" selection-start-line="47" selection-start-column="51" selection-end-line="47" selection-end-column="51" />
+              <folding>
+                <element signature="e#0#13#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -57,20 +68,8 @@
       <file leaf-file-name="mkdic_three.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mkdic_three.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8588">
-              <caret line="458" selection-start-line="458" selection-end-line="461" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="KorCYK.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/KorCYK.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1178">
-              <caret line="64" column="35" selection-start-line="64" selection-start-column="35" selection-end-line="64" selection-end-column="35" />
-              <folding>
-                <element signature="e#0#13#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="190">
+              <caret line="16" selection-start-line="16" selection-end-line="29" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -78,7 +77,7 @@
       <file leaf-file-name="sejong.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sejong.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
+            <state relative-caret-position="228">
               <caret line="12" column="27" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
               <folding>
                 <element signature="e#0#27#0" expanded="true" />
@@ -90,8 +89,8 @@
       <file leaf-file-name="splitsejong.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/splitsejong.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-334">
-              <caret line="26" column="50" lean-forward="true" selection-start-line="26" selection-start-column="50" selection-end-line="26" selection-end-column="50" />
+            <state relative-caret-position="399">
+              <caret line="26" column="50" selection-start-line="26" selection-start-column="50" selection-end-line="26" selection-end-column="50" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -108,6 +107,7 @@
       <find>SPACE</find>
       <find>cur[2]</find>
       <find>는데도</find>
+      <find>NA</find>
     </findStrings>
     <replaceStrings>
       <replace>_SPACE</replace>
@@ -126,15 +126,14 @@
         <option value="$PROJECT_DIR$/splitsejong.py" />
         <option value="$PROJECT_DIR$/corpusReaderk.py" />
         <option value="$PROJECT_DIR$/count_bigramtag.py" />
-        <option value="$PROJECT_DIR$/KorCYK.py" />
         <option value="$PROJECT_DIR$/mkdic_three.py" />
+        <option value="$PROJECT_DIR$/KorCYK.py" />
         <option value="$PROJECT_DIR$/mkdic_two.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="2021" />
-    <option name="y" value="212" />
+    <option name="x" value="313" />
     <option name="width" value="1400" />
     <option name="height" value="1000" />
   </component>
@@ -143,6 +142,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -154,7 +154,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -174,6 +173,24 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.mkdic_two">
+    <configuration name="KorCYK" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="CorpusReader" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/KorCYK.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration name="corpusReaderk" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="CorpusReader" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -228,24 +245,6 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="sejong" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="CorpusReader" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sejong.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
     <configuration name="splitsejong" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="CorpusReader" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -266,18 +265,18 @@
     </configuration>
     <list>
       <item itemvalue="Python.corpusReaderk" />
-      <item itemvalue="Python.sejong" />
       <item itemvalue="Python.count_bigramtag" />
       <item itemvalue="Python.mkdic_two" />
       <item itemvalue="Python.splitsejong" />
+      <item itemvalue="Python.KorCYK" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.mkdic_two" />
+        <item itemvalue="Python.KorCYK" />
         <item itemvalue="Python.splitsejong" />
         <item itemvalue="Python.count_bigramtag" />
         <item itemvalue="Python.corpusReaderk" />
-        <item itemvalue="Python.sejong" />
       </list>
     </recent_temporary>
   </component>
@@ -355,25 +354,39 @@
       <option name="project" value="LOCAL" />
       <updated>1523882969912</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="라스트 수정본">
+      <created>1523936568543</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1523936568543</updated>
+    </task>
+    <task id="LOCAL-00011" summary="NA잡아야댐">
+      <created>1523973089637</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1523973089637</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="165" width="1616" height="876" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18875" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15729167" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="R Packages" order="3" />
       <window_info anchor="right" id="R Graphics" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5005208" side_tool="true" weight="0.31170213" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49947917" visible="true" weight="0.34868422" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49947917" visible="true" weight="0.2819149" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -416,48 +429,39 @@
     <MESSAGE value="일단 핵심 코어 알고리즘 완성한듯? 이제 카운트바이그램 재정의와 딕트설정만 하면 1차로 끈남 교수님한테 까이고 다시 제작예정" />
     <MESSAGE value="돌아가는 시간이 너무오래걸려서 일단 돌리고 생각중" />
     <MESSAGE value="메모리에러 개빡치네" />
-    <option name="LAST_COMMIT_MESSAGE" value="메모리에러 개빡치네" />
+    <MESSAGE value="라스트 수정본" />
+    <MESSAGE value="NA잡아야댐" />
+    <option name="LAST_COMMIT_MESSAGE" value="NA잡아야댐" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url />
+          <url>file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py</url>
           <line>17</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/KorCYK.py</url>
+          <line>86</line>
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="25" />
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+      <option name="time" value="52" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/mkdic_two.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5757">
-          <caret line="312" column="22" lean-forward="true" selection-start-line="312" selection-start-column="22" selection-end-line="312" selection-end-column="22" />
-          <folding>
-            <element signature="e#286#435#0" />
-            <element signature="e#467#507#0" />
-            <element signature="e#539#663#0" />
-            <element signature="e#697#860#0" />
-            <element signature="e#900#1073#0" />
-            <element signature="e#1126#2395#0" />
-            <element signature="e#2429#2827#0" />
-            <element signature="e#2897#3662#0" />
-            <element signature="e#3711#4978#0" />
-            <element signature="e#5009#5103#0" />
-            <element signature="e#5131#5528#0" />
-            <element signature="e#5563#5723#0" />
-            <element signature="e#5775#5882#0" />
-            <element signature="e#5917#6022#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/splitsejong.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        <state relative-caret-position="399">
+          <caret line="26" column="50" selection-start-line="26" selection-start-column="50" selection-end-line="26" selection-end-column="50" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
@@ -466,23 +470,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mkdic_two.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2660">
-          <caret line="140" column="34" lean-forward="true" selection-start-line="140" selection-start-column="34" selection-end-line="140" selection-end-column="34" />
+        <state relative-caret-position="4655">
+          <caret line="245" column="30" lean-forward="true" selection-start-line="245" selection-start-column="30" selection-end-line="245" selection-end-column="30" />
           <folding>
             <element signature="e#286#435#0" />
             <element signature="e#467#507#0" />
             <element signature="e#539#663#0" />
             <element signature="e#697#860#0" />
-            <element signature="e#900#1073#0" />
-            <element signature="e#1126#2395#0" />
-            <element signature="e#2429#2827#0" />
-            <element signature="e#2897#3662#0" />
-            <element signature="e#3711#4978#0" />
-            <element signature="e#5009#5103#0" />
-            <element signature="e#5131#5528#0" />
-            <element signature="e#5563#5723#0" />
-            <element signature="e#5775#5882#0" />
-            <element signature="e#5917#6022#0" />
           </folding>
         </state>
       </provider>
@@ -502,16 +496,6 @@
             <element signature="e#467#507#0" />
             <element signature="e#539#663#0" />
             <element signature="e#697#860#0" />
-            <element signature="e#900#1073#0" />
-            <element signature="e#1126#2395#0" />
-            <element signature="e#2429#2827#0" />
-            <element signature="e#2897#3662#0" />
-            <element signature="e#3711#4978#0" />
-            <element signature="e#5009#5103#0" />
-            <element signature="e#5131#5528#0" />
-            <element signature="e#5563#5723#0" />
-            <element signature="e#5775#5882#0" />
-            <element signature="e#5917#6022#0" />
           </folding>
         </state>
       </provider>
@@ -592,16 +576,6 @@
             <element signature="e#467#507#0" />
             <element signature="e#539#663#0" />
             <element signature="e#697#860#0" />
-            <element signature="e#900#1073#0" />
-            <element signature="e#1126#2395#0" />
-            <element signature="e#2429#2827#0" />
-            <element signature="e#2897#3662#0" />
-            <element signature="e#3711#4978#0" />
-            <element signature="e#5009#5103#0" />
-            <element signature="e#5131#5528#0" />
-            <element signature="e#5563#5723#0" />
-            <element signature="e#5775#5882#0" />
-            <element signature="e#5917#6022#0" />
           </folding>
         </state>
       </provider>
@@ -672,16 +646,6 @@
             <element signature="e#467#507#0" />
             <element signature="e#539#663#0" />
             <element signature="e#697#860#0" />
-            <element signature="e#900#1073#0" />
-            <element signature="e#1126#2395#0" />
-            <element signature="e#2429#2827#0" />
-            <element signature="e#2897#3662#0" />
-            <element signature="e#3711#4978#0" />
-            <element signature="e#5009#5103#0" />
-            <element signature="e#5131#5528#0" />
-            <element signature="e#5563#5723#0" />
-            <element signature="e#5775#5882#0" />
-            <element signature="e#5917#6022#0" />
           </folding>
         </state>
       </provider>
@@ -752,16 +716,6 @@
             <element signature="e#467#507#0" />
             <element signature="e#539#663#0" />
             <element signature="e#697#860#0" />
-            <element signature="e#900#1073#0" />
-            <element signature="e#1126#2395#0" />
-            <element signature="e#2429#2827#0" />
-            <element signature="e#2897#3662#0" />
-            <element signature="e#3711#4978#0" />
-            <element signature="e#5009#5103#0" />
-            <element signature="e#5131#5528#0" />
-            <element signature="e#5563#5723#0" />
-            <element signature="e#5775#5882#0" />
-            <element signature="e#5917#6022#0" />
           </folding>
         </state>
       </provider>
@@ -833,23 +787,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/corpusReaderk.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1634">
-          <caret line="86" column="4" lean-forward="true" selection-start-line="86" selection-start-column="4" selection-end-line="86" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sejong.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="12" column="27" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -885,19 +822,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/KorCYK.py">
+    <entry file="file://$PROJECT_DIR$/splitsejong.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1178">
-          <caret line="64" column="35" selection-start-line="64" selection-start-column="35" selection-end-line="64" selection-end-column="35" />
+        <state relative-caret-position="399">
+          <caret line="26" column="50" selection-start-line="26" selection-start-column="50" selection-end-line="26" selection-end-column="50" />
           <folding>
-            <element signature="e#0#13#0" expanded="true" />
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1418">
+          <caret line="1662" column="20" selection-start-line="1662" selection-start-column="20" selection-end-line="1662" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sejong.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="12" column="27" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/count_bigramtag.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1083">
+        <state relative-caret-position="1159">
           <caret line="61" selection-start-line="61" selection-end-line="61" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
@@ -905,42 +859,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mkdic_three.py">
+    <entry file="file://$PROJECT_DIR$/corpusReaderk.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8588">
-          <caret line="458" selection-start-line="458" selection-end-line="461" selection-end-column="30" />
+        <state relative-caret-position="587">
+          <caret line="86" column="4" selection-start-line="86" selection-start-column="4" selection-end-line="86" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/splitsejong.py">
+    <entry file="file://$PROJECT_DIR$/KorCYK.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-334">
-          <caret line="26" column="50" lean-forward="true" selection-start-line="26" selection-start-column="50" selection-end-line="26" selection-end-column="50" />
+        <state relative-caret-position="-401">
+          <caret line="47" column="51" selection-start-line="47" selection-start-column="51" selection-end-line="47" selection-end-column="51" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#0#13#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mkdic_three.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="16" selection-start-line="16" selection-end-line="29" selection-end-column="46" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mkdic_two.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="320" column="13" selection-start-line="320" selection-start-column="13" selection-end-line="320" selection-end-column="13" />
+        <state relative-caret-position="245">
+          <caret line="334" column="34" selection-start-line="334" selection-start-column="34" selection-end-line="334" selection-end-column="34" />
           <folding>
             <element signature="e#286#435#0" />
             <element signature="e#467#507#0" />
             <element signature="e#539#663#0" />
             <element signature="e#697#860#0" />
-            <element signature="e#900#1073#0" />
-            <element signature="e#1126#2395#0" />
-            <element signature="e#2429#2827#0" />
-            <element signature="e#2897#3662#0" />
-            <element signature="e#3711#4978#0" />
-            <element signature="e#5009#5103#0" />
-            <element signature="e#5131#5528#0" />
-            <element signature="e#5563#5723#0" />
-            <element signature="e#5775#5882#0" />
-            <element signature="e#5917#6022#0" />
           </folding>
         </state>
       </provider>
