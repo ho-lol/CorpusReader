@@ -63,6 +63,10 @@ def make_del_block(fraction,raw_word,tagged):
         else:
             if index_raw+leng_raw != 0:
                 blocks.append([index_raw,leng_raw,index_tag,leng_tag])
+                split_data = split_cur(fraction, blocks[-1][0], blocks[-1][2], blocks[-1][1]-blocks[-1][0])
+                if split_data is not None:
+                    blocks.pop()
+                    blocks.extend(split_data)
                 index_raw = index_raw + leng_raw
                 index_tag = index_tag + leng_tag
                 leng_raw = 0
@@ -82,12 +86,27 @@ def make_del_block(fraction,raw_word,tagged):
                         break
                 nxt_raw += 1
             blocks.append([index_raw, len(raw_word), index_tag, len(tagged)])
+            split_data = split_cur(fraction, blocks[-1][0], blocks[-1][2], blocks[-1][1] - blocks[-1][0])
+            if split_data is not None:
+                blocks.pop()
+                blocks.extend(split_data)
+            blocks.append([len(raw_word), 0, len(tagged), 0])
             return blocks
 
     if leng_raw != 0:
         blocks.append([index_raw, index_raw + leng_raw, index_tag, index_tag + leng_tag])
+        split_data = split_cur(fraction, blocks[-1][0], blocks[-1][2], blocks[-1][1] - blocks[-1][0])
+        if split_data is not None:
+            blocks.pop()
+            blocks.extend(split_data)
     blocks.append([len(raw_word),0,len(tagged),0])
-    return blocks
+    # split_blocks = []
+    # for block in blocks:
+    #     if block[0] == block[2] and block[1] == block[3]:
+
+    #         split_blocks.append(block)
+    #     split_blocks.append(block)
+    return  blocks
 
 
 def make_arrays(fnr, fnt):
@@ -110,8 +129,8 @@ def split_cur(fraction, raw_index, morph_index, match_length):
         return None
     postag = fraction[morph_index][1]
     morph_length = 0
-    for index in range(morph_index,morph_index+match_length):
-        if remove_plus(postag) != remove_plus(fraction[index][1]):
+    for index in range(morph_index+1,morph_index+match_length):
+        if postag != remove_plus(fraction[index][1]):
             length = index-morph_index
             blocks.append([raw_index, raw_index+length, morph_index, morph_index+length])
             postag = fraction[index][1]
@@ -152,6 +171,8 @@ def generate_block(fraction, mat_blocks):
             if split_data is not None:
                 blocks.pop()
                 blocks.extend(split_data)
+            if fraction[nxt_morph_index-1] == ['이','VCP+'] and nxt_morph_index-(morph_index+match_length) == 1:#이빼는 작업
+                continue
             blocks[-1][3] = nxt_morph_index
         else:
             if split_data is not None:
@@ -214,11 +235,14 @@ def count_bigram(dic, key):
 
 def make_dict(raw_array, tagged_array, result_dic, bigram_dic):
     for raw_sent, tagged_sent in zip(raw_array, tagged_array):
+        flag = 0
         collect_bigram = "START"
         if not len(raw_sent) == len(tagged_sent):
             continue
+
         for raw_word, tag_word in zip(raw_sent, tagged_sent):
             if "NA" in tag_word:
+                flag = 1
                 continue
             if collect_bigram != "START":
                 collect_bigram += "+@@SP@@"
@@ -232,6 +256,9 @@ def make_dict(raw_array, tagged_array, result_dic, bigram_dic):
                     pyocheung, postag = nltk.str2tuple(morph)
                     collect_bigram = collect_bigram + "+" + postag
                     count_dict(result_dic, str(pyocheung), [pyocheung, postag])
+                    if str(pyocheung) == "'그들'":
+                        print(raw_word, tag_word)
+
                 continue
             for morph_tag in tag_morph:
                 morph, tag = nltk.str2tuple(morph_tag)
@@ -243,38 +270,30 @@ def make_dict(raw_array, tagged_array, result_dic, bigram_dic):
             SM = SequenceMatcher(None, raw_word, tagged)
             if include_delete(SM):
                 blocks = make_del_block(fraction,raw_word, tagged)
-                
-
             else:
-
                 mat_blocks = SM.get_matching_blocks()
                 if len(mat_blocks) == 1:#온 오/vx+ㄴ/etm 혹시 모를 다틀린 형태.
                     postag = '+'.join([morph_pos[morph_pos.rfind('/') + 1:] for morph_pos in tag_morph])
                     collect_bigram = collect_bigram + "+" + postag
                     count_dict(result_dic, str(raw_word), [tagged, postag])
+                    if str(raw_word) == "'그들'":
+                        print(raw_word, tag_word)
+
                     continue
                 blocks = generate_block(fraction, mat_blocks)
-
-
-
-            raw_temp=''
-            tagged_temp=''
+            raw_temp = ''
+            tagged_temp = ''
             for i in blocks:
                 raw_temp += raw_word[i[0]:i[1]]
                 tagged_temp += tagged[i[2]:i[3]]
             if raw_word != raw_temp:
                 print("로우이상")
-                print(raw_word,raw_temp)
-                print(raw_word,tagged)
-                print(tag_word)
-                print(blocks)
-            if tagged != tagged_temp:
-                print("템프이상")
-                # print(tagged,tagged_temp)
+                flag = 1
 
-                print(raw_word,tagged)
-                print(tag_word)
-                print(blocks)
+            if tagged != tagged_temp:#이건 이이건등등 VCP
+
+                flag = 1
+
             result = []
             for cur, nxt in pairwise(blocks):
                 raw = raw_word[cur[0]:cur[1]]
@@ -291,8 +310,6 @@ def make_dict(raw_array, tagged_array, result_dic, bigram_dic):
                     result[-1][2][-1] = result[-1][2][-1] + __pre_mark
                     post_tag_list[0] = __post_mark + post_tag_list[0]
                 result.append([raw, mor, post_tag_list])
-                if "앞대문" in mor:
-                    print("a")
             for data in result:
                 tags = data[2]
                 tag_list = [remove_plus(tag) for tag in tags]
@@ -300,8 +317,12 @@ def make_dict(raw_array, tagged_array, result_dic, bigram_dic):
                 collect_bigram = collect_bigram + "+" + postag_result
 
                 count_dict(result_dic, str(data[0]), [data[1], postag_result])
+        if flag == 0:
+            for cur,nxt in pairwise(collect_bigram.split('+')):
+                if cur+nxt == "@@SP@@EC":
+                    print(raw_sent,tagged_sent)
 
-        make_bigram(bigram_dic, collect_bigram)
+            make_bigram(bigram_dic, collect_bigram)
 
     return result_dic, bigram_dic
 
@@ -316,6 +337,38 @@ def make_df_txt(result, fn="dictionary1.txt"):
         for k in sorted(result, key=result.get):
             print(k, result[k], file=f)
 
+
+def removekey(d, key):
+    r = dict(d)
+    del r[key]
+    return  r
+
+
+def del_bigram(dic):
+    for k in dic.keys():
+        if dic[k] == 1:
+            dic = removekey(dic, k)
+    return dic
+
+
+# def removevalue(dic,key,value,i):
+#     temp = list(dic[key])
+#     if len(dic[key]) == 1:
+#         if dic[key][0][0] == 1:
+#             dic = removekey(dic,key)
+#     else:
+#         for i, data in enumerate(temp):
+#             if data[0] == 1:
+#                 del temp[i]
+#         dic[key] = temp
+#     return dic
+
+
+# def del_dict(dic):
+#     for k in dic.keys():
+#         for i, value in enumerate(dic[k]):
+#             dic = removevalue(dic,k,value,i)
+#     return dic
 
 if __name__ == "__main__":
     curr_path = os.path.dirname(os.path.abspath(__file__))
@@ -333,26 +386,25 @@ if __name__ == "__main__":
             files_tagged.append(fn)
 
     #테스트용 나중에 삭제바람
-    files_raw = [files_raw[0]]
-    files_tagged = [files_tagged[0]]
+    # files_raw = [files_raw[7]]
+    # files_tagged = [files_tagged[7]]
     dic = {}
     big = {}
     raw_array = []
     tagged_array = []
-    len_a =0
     for i in range(len(files_raw)):
         temp_raw_array, temp_tagged_array = make_arrays(fnr=files_raw[i], fnt=files_tagged[i])
         raw_array = temp_raw_array
         tagged_array = temp_tagged_array
-        len_a = len_a + len(raw_array)
         print(str(i)+"리스트만들기 완료")
         make_dict(raw_array, tagged_array, dic, big)
         print(str(i)+"사전만들기완료")
     os.chdir(curr_path)
     # make_df(dic, "dictionary.bin")
     # make_df(big, "count_bigram.bin")
-    make_df_txt(big,"bigram1.txt")
-    make_df_txt(dic,"dictionary1.txt")
+
+    # make_df_txt(big,"bigram1.txt")
+    # make_df_txt(dic,"dictionary1.txt")
     # print("사전만들기완료")
     #
     # os.chdir(curr_path)

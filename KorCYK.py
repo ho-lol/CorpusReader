@@ -84,12 +84,19 @@ def morph_generator(phrase, dic, rule):
 
                     table[lstart][rend].extend(ele)
                 table[lstart][rend] = del_dup(table[lstart][rend])
-    return del_dup(table[0][n])
+    return del_last(del_dup(table[0][n]))
 
+
+def del_last(result):
+    temp=[]
+    for i in result:
+        if i[-1][-1] != '<':
+            temp.append(i)
+    return temp
 
 if __name__ == "__main__":
     morph_dic, rule = load_dict_file()
-    result = morph_generator("안녕하세요.", morph_dic, rule)
+    result = morph_generator("안녕하세요", morph_dic, rule)
     print(len(result))
-    pprint.pprint(result[:100])
+    pprint.pprint(result)
 
