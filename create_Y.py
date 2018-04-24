@@ -1,4 +1,5 @@
 import itertools
+from os.path import basename
 from pathlib import Path
 import nltk
 import os
@@ -60,6 +61,9 @@ def pairwise(iterable: object) -> object:
 #             else:
 #                 SM = SequenceMatcher(None, raw_word, tagged)
 #         print('\n',file=f)
+def make_file(wfn, data, encoding='utf8'):
+    with open(wfn, 'w', encoding=encoding) as f:
+        print("\n\n" + "\n\n\n".join(" ".join(e) for e in data) + "\n\n\n", file=f)
 
 
 def remove_num(data):
@@ -106,10 +110,14 @@ def split_fraction(path,  table, fpatten = 'sj[0-9][0-9]', encoding='utf8'):
                     nxt = tag_morph[i+1]
                     if cur[cur.rfind('/') + 1:] + ' ' + nxt[nxt.rfind('/') + 1:] in table:
                         split_idx.append(i+1)
+
+
                 if len(split_idx) == 1:
                     raw_temp.append(raw_word)
                     tag_temp.append(tag_word)
                     continue
+                if split_idx[-1]!=len(tag_morph):
+                    split_idx.append(len(tag_morph))
 
                 tagged_word = ''.join([morph_pos[:morph_pos.rfind('/')] for morph_pos in tag_morph])
                 if raw_word == tagged_word:
@@ -119,8 +127,8 @@ def split_fraction(path,  table, fpatten = 'sj[0-9][0-9]', encoding='utf8'):
                         a = tag_morph[cur:nxt]
                         tag_temp.append("+".join(a))
                         for i in a:
-                            raw_len = i.rfind('/')
-                        raw_temp.append(raw_word[raw_idx:raw_len])
+                            raw_len += i.rfind('/')
+                        raw_temp.append(raw_word[raw_idx:raw_idx+raw_len])
                         raw_idx = raw_len
                         raw_len = 0
 
@@ -142,8 +150,8 @@ def split_fraction(path,  table, fpatten = 'sj[0-9][0-9]', encoding='utf8'):
                     split_morph.insert(0, 0)
                     split_raw.insert(0,0)
                     if len(split_morph) != len(split_raw):
-                        print(split_morph,split_raw)
-                        print(raw_word,tag_word)
+                        # print(split_morph,split_raw)
+                        # print(raw_word,tag_word)
                         raw_temp.append(raw_word)
                         tag_temp.append(tag_word)
                         continue
@@ -152,6 +160,15 @@ def split_fraction(path,  table, fpatten = 'sj[0-9][0-9]', encoding='utf8'):
                     for cur,nxt in pairwise(split_idx):
                         a = tag_morph[cur:nxt]
                         tag_temp.append("+".join(a))
+            raw.append(raw_temp)
+
+            tag_morph.append(tag_temp)
+        fr = re.sub('\D+', 'mkcr', basename(os.path.join(str(file)))) + ".txt"
+        ft = re.sub('\D+', 'mkct', basename(os.path.join(str(file)))) + ".txt"
+
+
+        make_file(fr, raw)
+        make_file(ft, tag_morphed)
 
 
 
@@ -168,9 +185,7 @@ def split_fraction(path,  table, fpatten = 'sj[0-9][0-9]', encoding='utf8'):
                     #     print(raw_sum)
                     #     raw_temp.append(raw_sum)
 
-            raw.append(raw_temp)
 
-            tag_morph.append(tag_temp)
             # raw.append([tagged[i] for i in range(0, len(tagged), 2)])
             #
             # tag_morphed.append([remove_num(tagged[i]) for i in range(1, len(tagged), 2)])
