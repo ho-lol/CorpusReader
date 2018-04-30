@@ -125,23 +125,30 @@ def make_arrays(fnr, fnt):
 
 
 def split_cur(fraction, raw_index, morph_index, match_length):
+    temp_fraction = fraction
+
     blocks = []
+    rindex = raw_index
+    mindex = morph_index
+    mlength = match_length
+    postag = fraction[mindex][1]
+    morph_length = 0
     if match_length == 1:
         return None
-    postag = fraction[morph_index][1]
-    morph_length = 0
-    for index in range(morph_index+1,morph_index+match_length):
-        if postag != remove_plus(fraction[index][1]):
-            length = index-morph_index
-            blocks.append([raw_index, raw_index+length, morph_index, morph_index+length])
-            postag = fraction[index][1]
-            morph_index = index
-            raw_index = raw_index + length
-            match_length = match_length - (index - morph_index)
+    temp_fraction[-1][1] += '+'
+    for index in range(morph_index,morph_index+match_length):
+        if temp_fraction[index][1][-1] == '+':
+            mlength = index-mindex+1
+            blocks.append([rindex, rindex+mlength, mindex, mindex+mlength])
+            postag = temp_fraction[index][1]
+            mindex = index + 1
+            rindex = rindex + mlength
             morph_length = 0
-        morph_length += 1
-
-    blocks.append([raw_index, raw_index+morph_length, morph_index, morph_index+morph_length])
+        else:
+            morph_length += 1
+    if mindex+morph_length == morph_index+match_length and morph_length != 0:
+        blocks.append([rindex, rindex+morph_length, mindex, mindex+morph_length])
+    temp_fraction[-1][1] =  temp_fraction[-1][1][:-1]
     if len(blocks) > 1:
         return blocks
     return None
@@ -172,8 +179,8 @@ def generate_block(fraction, mat_blocks):
             if split_data is not None:
                 blocks.pop()
                 blocks.extend(split_data)
-            if fraction[nxt_morph_index-1] == ['이','VCP+'] and nxt_morph_index-(morph_index+match_length) == 1:#이빼는 작업
-                continue
+            # if fraction[nxt_morph_index-1] == ['이','VCP+'] and nxt_morph_index-(morph_index+match_length) == 1:#이빼는 작업
+            #     continue
             blocks[-1][3] = nxt_morph_index
         else:
             if split_data is not None:
@@ -201,6 +208,8 @@ def del_dup(postag):
             if postag_list[-1] != tag[:tag.rfind('+')]:
                 postag_list.append(tag)
             else:
+                postag_list.pop()
+                postag_list.append(tag)
                 continue
         if postag_list[-1] != tag:
             postag_list.append(tag)
@@ -220,10 +229,10 @@ def mark_attach(prev, cur):
 def make_bigram(bigram_dic, collect_bigram):
     for cur_t, nxt_t in pairwise(collect_bigram.split('+')):
         if cur_t is not None and nxt_t is not None:
-            if cur_t != "SH" and nxt_t != "SH":
-                if cur_t != "SL" and nxt_t != "SL":
-                    if cur_t != "SN" and nxt_t != "SN":
-                        count_bigram(bigram_dic, cur_t+" "+nxt_t )
+            # if cur_t != "SH" and nxt_t != "SH":
+            #     if cur_t != "SL" and nxt_t != "SL":
+            #         if cur_t != "SN" and nxt_t != "SN":
+            count_bigram(bigram_dic, cur_t+" "+nxt_t )
 
 
 def count_bigram(dic, key):
@@ -244,6 +253,7 @@ def print_errer(errstr, errmorph, rstr, morph, raw_word, tag_word):
 
 def make_dict(raw_array, tagged_array, result_dic, bigram_dic):
     for raw_sent, tagged_sent in zip(raw_array, tagged_array):
+
         flag = 0
         collect_bigram = "START"
         if not len(raw_sent) == len(tagged_sent):
@@ -264,8 +274,14 @@ def make_dict(raw_array, tagged_array, result_dic, bigram_dic):
                 for morph in tag_morph:
                     pyocheung, postag = nltk.str2tuple(morph)
                     collect_bigram = collect_bigram + "+" + postag
+                    if "SH" in postag:
+                        continue
+                    if "SL" in postag:
+                        continue
+                    if "SN" in postag:
+                        continue
                     count_dict(result_dic, str(pyocheung), [pyocheung, postag])
-                    print_errer('.','어', pyocheung,pyocheung, raw_word, tag_word)
+
 
 
                 continue
@@ -276,6 +292,7 @@ def make_dict(raw_array, tagged_array, result_dic, bigram_dic):
                 fraction[-1][1] = fraction[-1][1]+"+"  ##태그 뒤에 +붙이기
             fraction[-1][1] = fraction[-1][1][:-1]
 
+
             SM = SequenceMatcher(None, raw_word, tagged)
             if include_delete(SM):
                 blocks = make_del_block(fraction,raw_word, tagged)
@@ -284,10 +301,15 @@ def make_dict(raw_array, tagged_array, result_dic, bigram_dic):
                 if len(mat_blocks) == 1:#온 오/vx+ㄴ/etm 혹시 모를 다틀린 형태.
                     postag = '+'.join([morph_pos[morph_pos.rfind('/') + 1:] for morph_pos in tag_morph])
                     collect_bigram = collect_bigram + "+" + postag
-                    count_dict(result_dic, str(raw_word), [tagged, postag])
+
                     print_errer('.', '어', raw_word, tagged, raw_word, tag_word)
-
-
+                    if "SH" in postag:
+                        continue
+                    if "SL" in postag:
+                        continue
+                    if "SN" in postag:
+                        continue
+                    count_dict(result_dic, str(raw_word), [tagged, postag])
                     continue
                 blocks = generate_block(fraction, mat_blocks)
             raw_temp = ''
@@ -304,6 +326,7 @@ def make_dict(raw_array, tagged_array, result_dic, bigram_dic):
                 flag = 1
 
             result = []
+
             for cur, nxt in pairwise(blocks):
                 raw = raw_word[cur[0]:cur[1]]
                 mor = tagged[cur[2]:cur[3]]
@@ -315,23 +338,54 @@ def make_dict(raw_array, tagged_array, result_dic, bigram_dic):
                     postag = "/".join(fraction[tag_num][1] for tag_num in range(cur[3], nxt[2]))
                     post_loc = cur[3]
                 post_tag_list = del_dup(postag)
-                if len(result) != 0 and mark_attach(result[-1][2][-1], fraction[post_loc][1]):
+                if len(result) != 0 and mark_attach(result[-1][2][-1], fraction[post_loc][1]) :
                     result[-1][2][-1] = result[-1][2][-1] + __pre_mark
                     post_tag_list[0] = __post_mark + post_tag_list[0]
                 result.append([raw, mor, post_tag_list])
             for data in result:
                 tags = data[2]
                 tag_list = [remove_plus(tag) for tag in tags]
+                if "SH" in tag_list:
+                    continue
+                if "SL" in tag_list:
+                    continue
+                if "SN" in tag_list:
+                    continue
                 postag_result = "+".join(tag_list)
                 collect_bigram = collect_bigram + "+" + postag_result
-                print_errer('.', '어', data[0], data[1], raw_word, tag_word)
-
                 count_dict(result_dic, str(data[0]), [data[1], postag_result])
+            # for cur, nxt in pairwise(collect_bigram.split('+')):
+                # if cur + nxt == "SPSL<":
+                #     print(cur + nxt)
+                #     print(raw_word, tag_word)
+                # if cur + nxt == ">SLNNG":
+                #     print(cur + nxt)
+                #     print(raw_word, tag_word)
+                # if cur + nxt == "SOSN<":
+                #     print(cur + nxt)
+                #     print(raw_word, tag_word)
+                # if cur + nxt == "SN<>SN":
+                #     print(cur + nxt)
+                #     print(raw_word, tag_word)
+                # if cur + nxt == ">SNSN":
+                #     print(cur + nxt)
+                #     print(raw_word, tag_word)
+                # if cur + nxt == "SF<>SF":
+                #     print(cur + nxt)
+                #     print(raw_word, tag_word)
+                # if cur + nxt == ">NNBJKB":
+                #     print(cur + nxt)
+                #     print(raw_word, tag_word)
+                # if cur + nxt == "XSNJC<":
+                #     print(cur + nxt)
+                #     print(raw_word, tag_word)
+                # if cur + nxt == ">SLNNP<":
+                #     print(cur + nxt)
+                #     print(raw_word, tag_word)
+                # if cur + nxt == "JXXR<":
+                #     print(cur + nxt)
+                #     print(raw_word, tag_word)
         if flag == 0:
-            # for cur,nxt in pairwise(collect_bigram.split('+')):
-            #     if cur+nxt == "@@SP@@EC":
-            #         print(raw_sent,tagged_sent)
-
             make_bigram(bigram_dic, collect_bigram)
     # print(result_dic.get('.'))
 
@@ -397,8 +451,8 @@ if __name__ == "__main__":
             files_tagged.append(fn)
 
     #테스트용 나중에 삭제바람
-    # files_raw = [files_raw[4]]
-    # files_tagged = [files_tagged[4]]
+    # files_raw = [files_raw[5]]
+    # files_tagged = [files_tagged[5]]
 
 
     dic = {}
