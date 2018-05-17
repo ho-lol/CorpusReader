@@ -246,12 +246,18 @@ def count_bigram(dic, key):
         dic[key] = 1
 
 
-def print_errer(errstr, errmorph, rstr, morph, raw_word, tag_word):
-    if errstr == rstr:
-        if errmorph == morph:
-            print(errstr, raw_word, tag_word)
+def print_errer(errstr, errmorph, errpos,rstr, morph,postag, raw_word, tag_word):
+    if errstr == rstr and errmorph== morph and errpos==postag:
+        print(errstr,errmorph,errpos)
+        print(raw_word,tag_word)
 
 def make_dict(raw_array, tagged_array, result_dic, bigram_dic):
+    err_bi={}
+    with open("bigramerr.txt",'r') as f:
+        for i in f.readlines():
+            err_bi[''.join(i.split()[:-1])]=1
+    print(err_bi)
+
     for raw_sent, tagged_sent in zip(raw_array, tagged_array):
 
         flag = 0
@@ -260,6 +266,7 @@ def make_dict(raw_array, tagged_array, result_dic, bigram_dic):
             continue
 
         for raw_word, tag_word in zip(raw_sent, tagged_sent):
+
             if "NA" in tag_word:
                 flag = 1
                 continue
@@ -274,6 +281,11 @@ def make_dict(raw_array, tagged_array, result_dic, bigram_dic):
                 for morph in tag_morph:
                     pyocheung, postag = nltk.str2tuple(morph)
                     collect_bigram = collect_bigram + "+" + postag
+                    # print_errer('·', '·', "SF", str(pyocheung), pyocheung, postag, raw_word, tag_word)
+                    # print_errer('·', '·', "SS", str(pyocheung), pyocheung, postag, raw_word, tag_word)
+                    # print_errer('·', '-', "SO", str(pyocheung), pyocheung, postag, raw_word, tag_word)
+                    # print_errer('·', '.', "SP", str(pyocheung), pyocheung, postag, raw_word, tag_word)
+                    # print_errer('·', '·', "SW", str(pyocheung), pyocheung, postag, raw_word, tag_word)
                     if "SH" in postag:
                         continue
                     if "SL" in postag:
@@ -281,12 +293,11 @@ def make_dict(raw_array, tagged_array, result_dic, bigram_dic):
                     if "SN" in postag:
                         continue
                     count_dict(result_dic, str(pyocheung), [pyocheung, postag])
-
-
-
                 continue
+
             for morph_tag in tag_morph:
                 morph, tag = nltk.str2tuple(morph_tag)
+
                 for syl in morph:
                     fraction.append([syl, tag])
                 fraction[-1][1] = fraction[-1][1]+"+"  ##태그 뒤에 +붙이기
@@ -301,14 +312,17 @@ def make_dict(raw_array, tagged_array, result_dic, bigram_dic):
                 if len(mat_blocks) == 1:#온 오/vx+ㄴ/etm 혹시 모를 다틀린 형태.
                     postag = '+'.join([morph_pos[morph_pos.rfind('/') + 1:] for morph_pos in tag_morph])
                     collect_bigram = collect_bigram + "+" + postag
-
-                    print_errer('.', '어', raw_word, tagged, raw_word, tag_word)
                     if "SH" in postag:
                         continue
                     if "SL" in postag:
                         continue
                     if "SN" in postag:
                         continue
+                    # print_errer('·', '·', "SF", str(raw_word), tagged, postag, raw_word, tag_word)
+                    # print_errer('·', '·', "SS", str(raw_word), tagged, postag, raw_word, tag_word)
+                    # print_errer('·', '-', "SO", str(raw_word), tagged, postag, raw_word, tag_word)
+                    # print_errer('·', '.', "SP", str(raw_word), tagged, postag, raw_word, tag_word)
+                    # print_errer('·', '·', "SW", str(raw_word), tagged, postag, raw_word, tag_word)
                     count_dict(result_dic, str(raw_word), [tagged, postag])
                     continue
                 blocks = generate_block(fraction, mat_blocks)
@@ -341,51 +355,64 @@ def make_dict(raw_array, tagged_array, result_dic, bigram_dic):
                 if len(result) != 0 and mark_attach(result[-1][2][-1], fraction[post_loc][1]) :
                     result[-1][2][-1] = result[-1][2][-1] + __pre_mark
                     post_tag_list[0] = __post_mark + post_tag_list[0]
+
                 result.append([raw, mor, post_tag_list])
             for data in result:
                 tags = data[2]
                 tag_list = [remove_plus(tag) for tag in tags]
-                if "SH" in tag_list:
-                    continue
-                if "SL" in tag_list:
-                    continue
-                if "SN" in tag_list:
-                    continue
+                # if "SH" in tag_list:
+                #     continue
+                # if "SL" in tag_list:
+                #     continue
+                # if "SN" in tag_list:
+                #     continue
                 postag_result = "+".join(tag_list)
                 collect_bigram = collect_bigram + "+" + postag_result
+                # print_errer('·','·',"SF",str(data[0]),data[1],postag_result,raw_word,tag_word)
+                # print_errer('·', '·', "SS", str(data[0]), data[1], postag_result, raw_word, tag_word)
+                # print_errer('·', '-', "SO", str(data[0]), data[1], postag_result, raw_word, tag_word)
+                # print_errer('·', '.', "SP", str(data[0]), data[1], postag_result, raw_word, tag_word)
+                # print_errer('·', '·', "SW", str(data[0]), data[1], postag_result, raw_word, tag_word)
                 count_dict(result_dic, str(data[0]), [data[1], postag_result])
             # for cur, nxt in pairwise(collect_bigram.split('+')):
-                # if cur + nxt == "SPSL<":
-                #     print(cur + nxt)
-                #     print(raw_word, tag_word)
-                # if cur + nxt == ">SLNNG":
-                #     print(cur + nxt)
-                #     print(raw_word, tag_word)
-                # if cur + nxt == "SOSN<":
-                #     print(cur + nxt)
-                #     print(raw_word, tag_word)
-                # if cur + nxt == "SN<>SN":
-                #     print(cur + nxt)
-                #     print(raw_word, tag_word)
-                # if cur + nxt == ">SNSN":
-                #     print(cur + nxt)
-                #     print(raw_word, tag_word)
-                # if cur + nxt == "SF<>SF":
-                #     print(cur + nxt)
-                #     print(raw_word, tag_word)
-                # if cur + nxt == ">NNBJKB":
-                #     print(cur + nxt)
-                #     print(raw_word, tag_word)
-                # if cur + nxt == "XSNJC<":
-                #     print(cur + nxt)
-                #     print(raw_word, tag_word)
-                # if cur + nxt == ">SLNNP<":
-                #     print(cur + nxt)
-                #     print(raw_word, tag_word)
-                # if cur + nxt == "JXXR<":
-                #     print(cur + nxt)
-                #     print(raw_word, tag_word)
+            #     if cur + nxt == ">NNG@@SP@@":
+            #         print(cur + nxt)
+            #         print(raw_word, tag_word)
+            #     if cur + nxt == "SONR":
+            #         print(cur + nxt)
+            #         print(raw_word, tag_word)
+            #     if cur + nxt == "@@SP@@XSA":
+            #         print(cur + nxt)
+            #         print(raw_word, tag_word)
+            #     if cur + nxt == "NNGVCN":
+            #         print(cur + nxt)
+            #         print(raw_word, tag_word)
+            #     if cur + nxt == "XSVETN<":
+            #         print(cur + nxt)
+            #         print(raw_word, tag_word)
+            #     if cur + nxt == "MMJKB":
+            #         print(cur + nxt)
+            #         print(raw_word, tag_word)
+            #     if cur + nxt == "JCSF":
+            #         print(cur + nxt)
+            #         print(raw_word, tag_word)
+            #     if cur + nxt == "ETMEC":
+            #         print(cur + nxt)
+            #         print(raw_word, tag_word)
+            #     if cur + nxt == "JXVCN":
+            #         print(cur + nxt)
+            #         print(raw_word, tag_word)
+            #     if cur + nxt == "SWMAJ":
+            #         print(cur + nxt)
+            #         print(raw_word, tag_word)
+
         if flag == 0:
+            collect_bigram += "+END"
+            for cur_t, nxt_t in pairwise(collect_bigram.split('+')):
+                if  err_bi.get(cur_t+nxt_t) != None:
+                    print(cur_t+"+"+nxt_t)
+                    print(raw_sent,tagged_sent)
+
             make_bigram(bigram_dic, collect_bigram)
     # print(result_dic.get('.'))
 
@@ -450,9 +477,9 @@ if __name__ == "__main__":
         elif "sjt" in fn:
             files_tagged.append(fn)
 
-    #테스트용 나중에 삭제바람
-    # files_raw = [files_raw[5]]
-    # files_tagged = [files_tagged[5]]
+    # 테스트용 나중에 삭제바람
+    # files_raw = [files_raw[6]]
+    # files_tagged = [files_tagged[6]]
 
 
     dic = {}
@@ -467,12 +494,12 @@ if __name__ == "__main__":
         make_dict(raw_array, tagged_array, dic, big)
         print(str(i)+"사전만들기완료")
     os.chdir(curr_path)
-    make_df(dic, "dictionary.bin")
-    make_df(big, "count_bigram.bin")
-
-    make_df_txt(big,"bigram1.txt")
-    make_df_txt(dic,"dictionary1.txt")
-    # # print("사전만들기완료")
+    # make_df(dic, "dictionary.bin")
+    # make_df(big, "count_bigram.bin")
+    # #
+    # make_df_txt(big,"bigram1.txt")
+    # make_df_txt(dic,"dictionary1.txt")
+    # # # print("사전만들기완료")
     #
     # os.chdir(curr_path)
     # make_df_txt(dic)
