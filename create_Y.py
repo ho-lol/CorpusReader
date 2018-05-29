@@ -63,7 +63,14 @@ def pairwise(iterable: object) -> object:
 #         print('\n',file=f)
 def make_file(wfn, data, encoding='utf8'):
     with open(wfn, 'w', encoding=encoding) as f:
-        print("\n\n" + "\n\n\n".join(" ".join(e) for e in data) + "\n\n\n", file=f)
+        for e in data:
+            for d in e:
+                for i in range(len(d)):
+                    if i == 0:
+                        print(d[i]+"/B",end=' ',file=f)
+                    else:
+                        print(d[i]+"/I",end=' ',file=f)
+            print("",file=f)
 
 
 def remove_num(data):
@@ -104,6 +111,7 @@ def split_fraction(path,  table, fpatten = 'sj[0-9][0-9]', encoding='utf8'):
                 #             pass
                 #         else:
                 #             SM = SequenceMatcher(None, raw_word, tagged)
+
                 split_idx=[0]
                 for i in range(0,len(tag_morph)-1):
                     cur = tag_morph[i]
@@ -174,25 +182,6 @@ def split_fraction(path,  table, fpatten = 'sj[0-9][0-9]', encoding='utf8'):
 
 
 
-                    #
-                    # for cur,nxt in pairwise(split_idx):
-                    #     a = tag_morph[cur:nxt]
-                    #     print("+".join(a))
-                    #     tag_temp.append("+".join(a))
-                    #     raw_sum = ''
-                    #     for i in a:
-                    #         raw_sum += i[:i.rfind('/')]
-                    #     print(raw_sum)
-                    #     raw_temp.append(raw_sum)
-
-
-            # raw.append([tagged[i] for i in range(0, len(tagged), 2)])
-            #
-            # tag_morphed.append([remove_num(tagged[i]) for i in range(1, len(tagged), 2)])
-            #
-            # tag_all.append([tagged[i] for i in range(1, len(tagged), 2)])
-
-
 if __name__ == "__main__":
     table = create_maping("SP_TABLE.txt")
     curr_path = os.path.dirname(os.path.abspath(__file__))
@@ -201,28 +190,4 @@ if __name__ == "__main__":
     assert isinstance(path, object)
     os.chdir(path)
     split_fraction(p, table)
-    # files_raw = []
-    # files_tagged = []
-    #
-    # for fn in os.listdir(path):
-    #     assert isinstance(fn, object)
-    #     if "sjr" in fn:
-    #         files_raw.append(fn)
-    #     elif "sjt" in fn:
-    #         files_tagged.append(fn)
-    #
-    # # 테스트용 나중에 삭제바람
-    # # files_raw = [files_raw[7]]
-    # # files_tagged = [files_tagged[7]]
-    # dic = {}
-    # big = {}
-    # raw_array = []
-    # tagged_array = []
-    # for i in range(len(files_raw)):
-    #     temp_raw_array, temp_tagged_array = make_arrays(fnr=files_raw[i], fnt=files_tagged[i])
-    #     raw_array = temp_raw_array
-    #     tagged_array = temp_tagged_array
-    #     print(str(i) + "리스트만들기 완료")
-    #     make_corpus(raw_array, tagged_array, table)
-    #     print(str(i) + "사전만들기완료")
     os.chdir(curr_path)

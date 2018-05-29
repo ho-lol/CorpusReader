@@ -267,6 +267,7 @@ def make_dict(raw_array, tagged_array, result_dic, bigram_dic):
 
         for raw_word, tag_word in zip(raw_sent, tagged_sent):
 
+
             if "NA" in tag_word:
                 flag = 1
                 continue
@@ -478,8 +479,8 @@ if __name__ == "__main__":
             files_tagged.append(fn)
 
     # 테스트용 나중에 삭제바람
-    # files_raw = [files_raw[6]]
-    # files_tagged = [files_tagged[6]]
+    files_raw = [files_raw[5]]
+    files_tagged = [files_tagged[5]]
 
 
     dic = {}
